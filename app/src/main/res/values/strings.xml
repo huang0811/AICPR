@@ -1,0 +1,40 @@
+<resources>
+    <!-- 缩写 tfe-pe: tensorflow lite pose estimation-->
+    <string name="description_for_the_button">START</string>
+    <string name="select_mode_description">選擇模式</string>
+    <string name="battle_mode_description">對戰模式</string>
+    <string name="game_mode_description">遊戲模式</string>
+    <string name="classic_mode_description">一般模式</string>
+    <string name="menu_button_description">學員資料</string>
+
+    <string name="tfe_pe_app_name">CPRAPP</string>
+    <string name="tfe_pe_request_permission">This app needs camera permission.</string>
+    <string name="tfe_pe_tv_cycle">按壓循環: %s</string>
+    <string name="tfe_pe_tv_deep">按壓深度: %s</string>
+    <string name="tfe_pe_tv_frequency">按壓頻率: %s</string>
+    <string name="tfe_pe_tv_model">模型: </string>
+    <string name="tfe_pe_tv_fps">Fps: %d</string>
+    <string name="tfe_pe_tv_angle">按壓姿勢: %s</string>
+    <string name="tfe_pe_tv_device">裝置: </string>
+    <string name="tfe_pe_tv_camera">相機: </string>
+    <string name="btn_home">回主選單</string>
+    <string name="btn_history">歷史紀錄</string>
+    <string name="btn_report">評估報告</string>
+    <string name="btn_restart">重新開始</string>
+
+    <string-array name="tfe_pe_device_name">
+        <item>NNAPI</item>
+        <item>GPU</item>
+        <item>CPU</item>
+    </string-array>
+
+    <string-array name="tfe_pe_camera_name">
+        <item>Back</item>
+        <item>Front</item>
+    </string-array>
+    <string-array name="tfe_pe_model_name">
+        <item>Movenet Thunder</item>
+        <item>Movenet Lightning</item>
+
+    </string-array>
+</resources>

@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultActivity"
+    android:background="#D2EFF4">
+
+    <ImageView
+        android:id="@+id/ivPass"
+        android:layout_width="325dp"
+        android:layout_height="413dp"
+        android:contentDescription="@string/pass"
+        android:src="@drawable/ic_pass"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.006" />
+
+
+
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/ivPass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ibRestart"
+        app:layout_constraintVertical_bias="0.447"
+        tools:ignore="MissingConstraints">
+
+        <TableRow android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_margin="0.5dip"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="7pt" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#D0D0D0"
+                android:padding="3dip"
+                android:text="深度(cm)"
+                android:textSize="7pt" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#D0D0D0"
+                android:padding="3dip"
+                android:text="按壓頻率"
+                android:textSize="7pt" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#D0D0D0"
+                android:padding="3dip"
+                android:text="角度(左手)"
+                android:textSize="6pt" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#D0D0D0"
+                android:padding="3dip"
+                android:text="角度(右手)"
+                android:textSize="6pt" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#ADADAD	"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="分數(%)"
+                android:textSize="8pt" />
+
+            <TextView
+                android:id="@+id/tvFirstDepth"
+                android:layout_row="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#ADADAD	"
+                android:padding="3dip"
+                android:text=""
+                android:textSize="8pt" />
+
+            <TextView
+                android:id="@+id/tvFirstFrequency"
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#ADADAD	"
+                android:padding="3dip"
+                android:text=""
+                android:textSize="8pt" />
+
+            <TextView
+                android:id="@+id/tvFirstLeft"
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#ADADAD"
+                android:padding="3dip"
+                android:text=""
+                android:textSize="8pt" />
+
+            <TextView
+                android:id="@+id/tvFirstRight"
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#ADADAD"
+                android:padding="3dip"
+                android:text=""
+                android:textSize="8pt" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="是否通過"
+                android:textSize="8pt" />
+
+            <TextView
+                android:id="@+id/tvSecondDepth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_row="1"
+                android:layout_margin="0.5dip"
+                android:background="#D0D0D0"
+                android:padding="3dip"
+                android:text=""
+                android:textSize="8pt" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#D0D0D0"
+                android:padding="3dip"
+                android:text=""
+                android:textSize="8pt" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#D0D0D0"
+                android:padding="3dip"
+                android:text=""
+                android:textSize="8pt" />
+
+            <TextView
+
+                android:layout_column="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="0.5dip"
+                android:background="#D0D0D0"
+                android:padding="3dip"
+                android:text=""
+                android:textSize="8pt" />
+        </TableRow>
+
+<!--        <TableRow>-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="3dp"-->
+<!--                android:text="第三次"-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvThirdDepth"-->
+<!--                android:layout_row="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+<!--        </TableRow>-->
+
+<!--        <TableRow>-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="3dp"-->
+<!--                android:text="第四次"-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvFourthDepth"-->
+<!--                android:layout_row="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+<!--        </TableRow>-->
+
+<!--        <TableRow>-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="3dp"-->
+<!--                android:text="第五次"-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvFifthDepth"-->
+<!--                android:layout_row="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#ADADAD"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+<!--        </TableRow>-->
+
+<!--        <TableRow>-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="3dp"-->
+<!--                android:text="平均"-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_row="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+
+<!--            <TextView-->
+<!--                android:layout_column="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_margin="0.5dip"-->
+<!--                android:background="#D0D0D0"-->
+<!--                android:padding="3dip"-->
+<!--                android:text=""-->
+<!--                android:textSize="8pt" />-->
+<!--        </TableRow>-->
+    </TableLayout>
+    <ImageButton
+        android:id="@+id/ibRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/restart"
+        android:src="@drawable/restart"
+        app:layout_constraintBottom_toTopOf="@+id/ibBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPass"
+        app:layout_constraintVertical_bias="0.859" />
+
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/back"
+        android:src="@drawable/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvTotalTime"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="總按壓時間:"-->
+<!--        android:textSize="12pt"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.694"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

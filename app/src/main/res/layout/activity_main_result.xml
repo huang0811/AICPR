@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D2EFF4"
+    tools:context=".MainResultActivity">
+
+    <!-- 標題文本 -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="CPR評分結果"
+        android:textColor="#333333"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 表格佈局 -->
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="#FFFFFF"
+        android:stretchColumns="1,2,3,4"
+        app:layout_constraintBottom_toTopOf="@id/buttonLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+        <!-- 表頭行 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="深度"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="頻率"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="角度"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="循環"
+                android:textSize="17sp" />
+        </TableRow>
+
+        <!-- 第一行數據 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="第一次"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFirstDepth"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFirstFrequency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFirstLeft"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFirstRight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+        </TableRow>
+
+        <!-- 第二行數據 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="第二次"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvSecondDepth"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvSecondFrequency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvSecondLeft"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvSecondRight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+        </TableRow>
+
+        <!-- 第三行數據 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="第三次"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvThirdDepth"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvThirdFrequency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvThirdLeft"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvThirdRight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+        </TableRow>
+
+        <!-- 第四行數據 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="第四次"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFourthDepth"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFourthFrequency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFourthLeft"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFourthRight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#D0D0D0"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+        </TableRow>
+
+        <!-- 第五行數據 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="第五次"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFifthDepth"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFifthFrequency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFifthLeft"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvFifthRight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ADADAD"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+        </TableRow>
+
+        <!-- 是否合格行 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="是否合格"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvIsPassDepth"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvIsPassFrequency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvIsPassLeft"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvIsPassRight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="17sp" />
+        </TableRow>
+    </TableLayout>
+
+    <!-- 按钮区域 -->
+    <GridLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:columnCount="2"
+        android:gravity="center"
+        android:rowCount="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tableLayout">
+
+        <ImageButton
+            android:id="@+id/btnReport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@null"
+            android:contentDescription="@string/btn_report"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_report" />
+
+        <ImageButton
+            android:id="@+id/btnRestart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@null"
+            android:contentDescription="@string/btn_restart"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_restart" />
+
+        <ImageButton
+            android:id="@+id/btnHistory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@null"
+            android:contentDescription="@string/btn_history"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_history" />
+
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@null"
+            android:contentDescription="@string/btn_home"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_home" />
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

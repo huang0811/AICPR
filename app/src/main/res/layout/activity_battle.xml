@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    tools:context="lyi.linyi.posemon.MainActivity">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom">
+
+            <ImageView
+                android:id="@+id/run"
+                android:layout_width="match_parent"
+                android:layout_height="537dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/run" />
+
+            <ImageView
+                android:id="@+id/player1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/player1" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bottom_sheet"
+                android:layout_width="match_parent"
+                android:layout_height="285dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="1dp"
+                android:background="#D2EFF4">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btLayout"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Button
+                        android:id="@+id/btHome"
+                        android:layout_width="80pt"
+                        android:layout_height="wrap_content"
+                        android:text="Back to HOME"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btResult"
+                        app:layout_constraintHorizontal_bias="0.101"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <Button
+                        android:id="@+id/btResult"
+                        android:layout_width="80pt"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="Go to result"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.992"
+                        app:layout_constraintStart_toStartOf="@+id/btHome"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:layout_constraintVertical_chainStyle="packed" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvTimer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginBottom="21dp"
+                    android:gravity="center_vertical"
+
+                    android:text="Time: 00:00"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@+id/btLayout"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/tvFps"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginBottom="21dp"
+
+                    android:gravity="center_vertical"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@+id/tvTimer"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/tvCycle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginBottom="21dp"
+
+                    android:gravity="center_vertical"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@+id/tvFps"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/tvDeep"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginBottom="21dp"
+
+                    android:gravity="center_vertical"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@+id/tvCycle"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/tvFrequency"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDeep" />
+
+                <TextView
+                    android:id="@+id/tvAngle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:textSize="20dp"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFrequency" />
+
+                <!--                app:layout_constraintBottom_toTopOf="@+id/spnDevice"-->
+
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/tvDevice"-->
+                <!--                android:gravity="center_vertical"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="27dp"-->
+                <!--                android:layout_marginStart="2dp"-->
+                <!--                android:layout_marginTop="5dp"-->
+                <!--                android:text="@string/tfe_pe_tv_device"-->
+                <!--                app:layout_constraintBottom_toTopOf="@+id/tvCamera"-->
+                <!--                app:layout_constraintEnd_toStartOf="@+id/spnDevice"-->
+                <!--                app:layout_constraintStart_toStartOf="parent"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/tvAngle" />-->
+
+                <!--            <Spinner-->
+                <!--                android:id="@+id/spnDevice"-->
+                <!--                android:gravity="center_vertical"-->
+                <!--                android:layout_width="0dp"-->
+                <!--                android:layout_height="24dp"-->
+                <!--                android:layout_marginTop="2dp"-->
+                <!--                app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                app:layout_constraintStart_toEndOf="@+id/tvDevice"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/tvAngle"-->
+                <!--                app:layout_constraintBottom_toTopOf="@+id/spnCamera"-->
+                <!--                />-->
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/tvCamera"-->
+                <!--                android:gravity="center_vertical"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="27dp"-->
+                <!--                android:layout_marginStart="2dp"-->
+                <!--                android:layout_marginTop="5dp"-->
+                <!--                android:text="@string/tfe_pe_tv_camera"-->
+                <!--                app:layout_constraintBottom_toTopOf="@+id/tvModel"-->
+                <!--                app:layout_constraintEnd_toStartOf="@+id/spnCamera"-->
+                <!--                app:layout_constraintStart_toStartOf="parent"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/tvDevice" />-->
+
+                <!--            <Spinner-->
+                <!--                android:id="@+id/spnCamera"-->
+                <!--                android:layout_width="0dp"-->
+                <!--                android:layout_height="27dp"-->
+                <!--                android:layout_marginTop="5dp"-->
+                <!--                android:gravity="center_vertical"-->
+                <!--                app:layout_constraintBottom_toTopOf="@+id/spnModel"-->
+                <!--                app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                app:layout_constraintStart_toEndOf="@+id/tvCamera"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/spnDevice"-->
+                <!--                tools:ignore="SpeakableTextPresentCheck" />-->
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/tvModel"-->
+                <!--                android:gravity="center_vertical"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginStart="5dp"-->
+                <!--                android:layout_marginTop="5dp"-->
+                <!--                android:layout_marginBottom="8dp"-->
+                <!--                android:text="@string/tfe_pe_tv_model"-->
+                <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                app:layout_constraintEnd_toStartOf="@+id/spnModel"-->
+                <!--                app:layout_constraintStart_toStartOf="parent"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/tvCamera" />-->
+
+                <!--            <Spinner-->
+                <!--                android:id="@+id/spnModel"-->
+                <!--                android:layout_width="0dp"-->
+                <!--                android:layout_height="27dp"-->
+                <!--                android:layout_marginTop="5dp"-->
+                <!--                android:layout_marginBottom="8dp"-->
+                <!--                android:gravity="center_vertical"-->
+                <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                app:layout_constraintStart_toEndOf="@+id/tvModel"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/spnCamera"-->
+                <!--                tools:ignore="SpeakableTextPresentCheck" />-->
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="153dp"
+        android:layout_height="201dp"
+        android:layout_gravity="bottom|end" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
