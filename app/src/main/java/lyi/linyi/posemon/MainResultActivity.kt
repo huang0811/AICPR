@@ -68,6 +68,7 @@ class MainResultActivity : AppCompatActivity() {
             var totalFrequency = 0.0
             var totalLeftAngle = 0.0
             var totalRightAngle = 0.0
+            var totalBothAngle= 0.0
             val completionStatus = mutableListOf("未完成", "未完成", "未完成", "未完成", "未完成")
 
             for (i in 0 until minOf(maxDiffDataList.size, 5)) {
@@ -77,13 +78,14 @@ class MainResultActivity : AppCompatActivity() {
                 // 計算平均值
                 val averageDepth = maxDiffData.deep.toFloat() // 第一次循環平均按壓深度
                 val averageFrequency = maxDiffData.frequency.toFloat() // 第一次循環平均按壓頻率
-                val averageAngle = (maxDiffData.leftAngle + maxDiffData.rightAngle) / 2 // 雙手平均按壓角度
+//                val averageAngle = (maxDiffData.leftAngle + maxDiffData.rightAngle) / 2 // 雙手平均按壓角度
+                val  bothAngle=maxDiffData.bothAngle
                 val cycleCompleted = if (maxDiffData.isCycleCompleted) "完成" else "未完成" // 循環是否完成
 
                 // 更新 dataValues 中的相應行
                 dataValues[rowIndex][1] = String.format("%.1f", averageDepth)
                 dataValues[rowIndex][2] = String.format("%.1f", averageFrequency)
-                dataValues[rowIndex][3] = String.format("%.1f", averageAngle)
+                dataValues[rowIndex][3] = String.format("%.1f", bothAngle)
                 dataValues[rowIndex][4] = cycleCompleted
 
                 // 判斷是否合格並更新是否合格行
@@ -93,7 +95,7 @@ class MainResultActivity : AppCompatActivity() {
                 if (averageFrequency !in 100.0..120.0) {
                     dataValues[6][2] = "不合格"
                 }
-                if (averageAngle < 165) {
+                if (bothAngle < 165) {
                     dataValues[6][3] = "不合格"
                 }
                 if (!maxDiffData.isCycleCompleted) {
@@ -103,8 +105,9 @@ class MainResultActivity : AppCompatActivity() {
                 // 計算總和
                 totalDeep += maxDiffData.deep
                 totalFrequency += maxDiffData.frequency
-                totalLeftAngle += maxDiffData.leftAngle
-                totalRightAngle += maxDiffData.rightAngle
+                totalBothAngle+=maxDiffData.bothAngle
+//                totalLeftAngle += maxDiffData.leftAngle
+//                totalRightAngle += maxDiffData.rightAngle
             }
 
 

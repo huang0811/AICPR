@@ -71,8 +71,9 @@ class ResultActivity : AppCompatActivity() {
         if (maxDiffDataList != null) {
             var totalDeep = 0.0
             var totalFrequency = 0.0
-            var totalLeftAngle = 0.0
-            var totalRightAngle = 0.0
+            var totalBothAngle=0.0
+//            var totalLeftAngle = 0.0
+//            var totalRightAngle = 0.0
             for (i in 0 until minOf(maxDiffDataList.size, 5)) {
 
                 val maxDiffData = maxDiffDataList[i]
@@ -82,15 +83,18 @@ class ResultActivity : AppCompatActivity() {
                 // 更新 dataValues 中的相應行
                 dataValues[rowIndex][1] = String.format("%.1f", maxDiffData.deep.toFloat())
                 dataValues[rowIndex][2] = String.format("%.1f", maxDiffData.frequency)
-                dataValues[rowIndex][3] =String.format("%.1f", maxDiffData.leftAngle)
-                dataValues[rowIndex ][4] =String.format("%.1f", maxDiffData.rightAngle)
+                dataValues[rowIndex][3] =String.format("%.1f", maxDiffData.bothAngle)
+
+//                dataValues[rowIndex][3] =String.format("%.1f", maxDiffData.leftAngle)
+//                dataValues[rowIndex ][4] =String.format("%.1f", maxDiffData.rightAngle)
 
 
                 // 計算總和
                 totalDeep += maxDiffData.deep
                 totalFrequency += maxDiffData.frequency
-                totalLeftAngle += maxDiffData.leftAngle
-                totalRightAngle += maxDiffData.rightAngle
+                totalBothAngle+=maxDiffData.bothAngle
+//                totalLeftAngle += maxDiffData.leftAngle
+//                totalRightAngle += maxDiffData.rightAngle
             }
             // 計算平均值
             val rowCount = minOf(maxDiffDataList.size,5 )
@@ -103,14 +107,14 @@ class ResultActivity : AppCompatActivity() {
                 dataValues[2][2] = String.format("通過")
                 passcount++
             }
-            if(totalLeftAngle.toFloat() / rowCount>=50) {
-                dataValues[2][3] = String.format("通過")
-                passcount++
-            }
-            if(totalRightAngle.toFloat()/ rowCount>=50) {
-                dataValues[2][4] = String.format("通過")
-                passcount++
-            }
+//            if(totalLeftAngle.toFloat() / rowCount>=50) {
+//                dataValues[2][3] = String.format("通過")
+//                passcount++
+//            }
+//            if(totalRightAngle.toFloat()/ rowCount>=50) {
+//                dataValues[2][4] = String.format("通過")
+//                passcount++
+//            }
 
 
             if(passcount<3){

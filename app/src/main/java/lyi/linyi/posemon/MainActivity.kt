@@ -78,8 +78,8 @@ data class CsvData(val deep: Float, val frequency: Int, val leftAngle: Int, val 
 data class MaxDiffData(
     val deep: Float,
     val frequency: Float,
-    val leftAngle: Float,
-    val rightAngle: Float,
+    val bothAngle: Float,
+//    val rightAngle: Float,
     val isCycleCompleted: Boolean
 ) : Parcelable {
     // 實現 Parcelable 接口的必要方法
@@ -91,8 +91,9 @@ data class MaxDiffData(
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeFloat(deep)
         dest.writeFloat(frequency)
-        dest.writeFloat(leftAngle)
-        dest.writeFloat(rightAngle)
+        dest.writeFloat(bothAngle)
+//        dest.writeFloat(leftAngle)
+//        dest.writeFloat(rightAngle)
         dest.writeByte(if (isCycleCompleted) 1 else 0)
     }
 
@@ -109,7 +110,7 @@ data class MaxDiffData(
     private constructor(parcel: Parcel) : this(
         parcel.readFloat(),
         parcel.readFloat(),
-        parcel.readFloat(),
+//        parcel.readFloat(),
         parcel.readFloat(),
         parcel.readByte() != 0.toByte()
     )
@@ -170,6 +171,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
     private var totalFrequency = 0
     private var totalLeftAngle = 0
     private var totalRightAngle = 0
+    private var totalBothAngle = 0
     private var totalcount = 0
     private var frequencyCount = 0
     private var deepCount = 0
@@ -441,11 +443,15 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                             R.string.tfe_pe_tv_frequency,
                             "每分鐘${maxDiff.frequency} 下"
                         )
-
                         tvAngle.text = getString(
                             R.string.tfe_pe_tv_angle,
-                            "左手:${maxDiff.leftAngle}° 右手:${maxDiff.rightAngle}°"
+                            "雙手:${(maxDiff.leftAngle+maxDiff.rightAngle)/2}° "
                         )
+
+//                        tvAngle.text = getString(
+//                            R.string.tfe_pe_tv_angle,
+//                            "左手:${maxDiff.leftAngle}° 右手:${maxDiff.rightAngle}°"
+//                        )
                     }
 
                 }
@@ -1500,7 +1506,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                                                 )
                                                 dataArrayList.add(csvData)
                                                 dataArrayList_3.add(csvData)
-                                                totalcount++
+
                                                 if (csvData.frequency >= 100.0 && csvData.frequency <= 120.0) {
                                                     frequencyCount++
                                                 }
@@ -1522,6 +1528,9 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                                                         totalFrequency += maxDiff_3.frequency
                                                         totalLeftAngle += maxDiff_3.leftAngle
                                                         totalRightAngle += maxDiff_3.rightAngle
+                                                        totalBothAngle+=(maxDiff_3.leftAngle+maxDiff_3.rightAngle)/2
+
+                                                        totalcount++
 //                                                totalcount++
 //                                                if(maxDiff_3.frequency>=100 && maxDiff_3.frequency<=120){
 //                                                    frequencyCount++
@@ -1611,11 +1620,19 @@ class MainActivity : AppCompatActivity(), Player.Listener {
 
                                                     if (totalcount != 0) {
                                                         maxDiffDataList.add(
-                                                            MaxDiffData(   //計算有達到的次數
-                                                                (deepCount.toFloat() / totalcount) * 100,
-                                                                (frequencyCount.toFloat() / totalcount) * 100,
-                                                                (leftAngleCount.toFloat() / totalcount) * 100,
-                                                                (rightAngleCount.toFloat() / totalcount) * 100
+//                                                            MaxDiffData(   //計算有達到的次數
+//                                                                (deepCount.toFloat() / totalcount) * 100,
+//                                                                (frequencyCount.toFloat() / totalcount) * 100,
+//                                                                (leftAngleCount.toFloat() / totalcount) * 100,
+//                                                                (rightAngleCount.toFloat() / totalcount) * 100,true
+//                                                            )
+                                                            MaxDiffData(   //計算所有值的平均
+                                                                (totalDeep.toFloat() / totalcount) ,
+                                                                (totalFrequency.toFloat() / totalcount) ,
+                                                                (totalBothAngle.toFloat() / totalcount) ,
+//                                                                (totalLeftAngle.toFloat() / totalcount) ,
+//                                                                (totalRightAngle.toFloat() / totalcount) ,
+                                                                true
                                                             )
 
 
@@ -1635,6 +1652,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                                                         totalFrequency = 0
                                                         totalLeftAngle = 0
                                                         totalRightAngle = 0
+                                                        totalBothAngle=0
                                                         willCycle = false
                                                     }
                                                 }

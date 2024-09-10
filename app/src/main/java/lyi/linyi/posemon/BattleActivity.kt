@@ -108,6 +108,7 @@ package lyi.linyi.posemon
         private var totalFrequency = 0
         private var totalLeftAngle = 0
         private var totalRightAngle = 0
+        private var totalBothAngle = 0
         private var totalcount=0
         private var frequencyCount=0
         private var deepCount=0
@@ -1422,6 +1423,7 @@ package lyi.linyi.posemon
                                                         totalFrequency+= maxDiff_3.frequency
                                                         totalLeftAngle+=maxDiff_3.leftAngle
                                                         totalRightAngle+= maxDiff_3.rightAngle
+                                                        totalBothAngle+=(maxDiff_3.leftAngle+maxDiff_3.rightAngle)/2
 //                                                totalcount++
 //                                                if(maxDiff_3.frequency>=100 && maxDiff_3.frequency<=120){
 //                                                    frequencyCount++
@@ -1513,11 +1515,19 @@ package lyi.linyi.posemon
 
                                                     if(totalcount!=0) {
                                                         maxDiffDataList.add(
-                                                            MaxDiffData(   //計算有達到的次數
-                                                                (deepCount.toFloat() / totalcount)*100,
-                                                                (frequencyCount.toFloat() / totalcount)*100,
-                                                                (leftAngleCount.toFloat() / totalcount)*100,
-                                                                (rightAngleCount.toFloat() / totalcount)*100
+//                                                            MaxDiffData(   //計算有達到的次數
+//                                                                (deepCount.toFloat() / totalcount)*100,
+//                                                                (frequencyCount.toFloat() / totalcount)*100,
+//                                                                (leftAngleCount.toFloat() / totalcount)*100,
+//                                                                (rightAngleCount.toFloat() / totalcount)*100,
+//                                                                true
+//                                                            )
+                                                            MaxDiffData(   //計算所有值的平均
+                                                                (totalDeep.toFloat() / totalcount) ,
+                                                                (totalBothAngle.toFloat() / totalcount) ,
+//                                                                (totalLeftAngle.toFloat() / totalcount) ,
+                                                                (totalRightAngle.toFloat() / totalcount) ,
+                                                                true
                                                             )
 
 
