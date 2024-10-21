@@ -1,0 +1,47 @@
+<resources>
+    <!-- 缩写 tfe-pe: tensorflow lite pose estimation-->
+    <string name="description_for_the_button">START</string>
+    <string name="battle_mode_description">Battle Mode</string>
+    <string name="game_mode_description">遊戲模式</string>
+    <string name="normal_mode_description">Normal Mode</string>
+    <string name="menu_button_description">學員資料</string>
+    <string name="demo_description">demo</string>
+
+    <string name="tfe_pe_app_name">CPRAPP</string>
+    <string name="tfe_pe_request_permission">This app needs camera permission.</string>
+    <string name="tfe_pe_tv_cycle">按壓循環: %s</string>
+    <string name="tfe_pe_tv_deep">按壓深度: %s</string>
+    <string name="tfe_pe_tv_frequency">按壓頻率: %s</string>
+    <string name="tfe_pe_tv_model">模型: </string>
+    <string name="tfe_pe_tv_fps">Fps: %d</string>
+    <string name="tfe_pe_tv_angle">按壓姿勢: %s</string>
+    <string name="tfe_pe_tv_device">裝置: </string>
+    <string name="tfe_pe_tv_camera">相機: </string>
+    <string name="pass">恭喜獲勝</string>
+    <string name="btn_history">History</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_signup">Sign Up</string>
+    <string name="btn_report">評估報告</string>
+    <string name="btn_restart">New Game</string>
+    <string name="btn_home">Back To Home</string>
+    <string name="btn_result">Go To Result</string>
+    <string name="btn_help">Ask for help</string>
+
+    <string name="default_web_client_id">718819344543-en32s1msev786pisou2ho9rgs6ue2lbr.apps.googleusercontent.com</string>
+
+    <string-array name="tfe_pe_device_name">
+        <item>NNAPI</item>
+        <item>GPU</item>
+        <item>CPU</item>
+    </string-array>
+
+    <string-array name="tfe_pe_camera_name">
+        <item>Back</item>
+        <item>Front</item>
+    </string-array>
+    <string-array name="tfe_pe_model_name">
+        <item>Movenet Thunder</item>
+        <item>Movenet Lightning</item>
+
+    </string-array>
+</resources>

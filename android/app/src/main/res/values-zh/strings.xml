@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="description_for_the_button">START</string>
+    <string name="battle_mode_description">對戰模式</string>
+    <string name="game_mode_description">遊戲模式</string>
+    <string name="normal_mode_description">一般模式</string>
+    <string name="menu_button_description">學員資料</string>
+    <string name="demo_description">教學</string>
+
+    <string name="tfe_pe_app_name">CPRAPP</string>
+    <string name="tfe_pe_request_permission">未獲得相機權限，應用無法運行</string>
+    <string name="tfe_pe_tv_cycle">按壓循環: %s</string>
+    <string name="tfe_pe_tv_deep">按壓深度: %s</string>
+    <string name="tfe_pe_tv_frequency">按壓頻率: %s</string>
+    <string name="tfe_pe_tv_model">模型: %s</string>
+    <string name="tfe_pe_tv_fps">檢測偵率: %d</string>
+    <string name="tfe_pe_tv_angle">角度: %s</string>
+    <string name="tfe_pe_tv_device">裝置: </string>
+    <string name="tfe_pe_tv_camera">相機: </string>
+    <string name="pass">恭喜獲勝</string>
+    <string name="btn_history">歷史紀錄</string>
+    <string name="btn_login">登入</string>
+    <string name="btn_signup">註冊</string>
+    <string name="btn_report">評估報告</string>
+    <string name="btn_restart">重新開始</string>
+    <string name="btn_home">回主選單</string>
+    <string name="btn_result">前往結果</string>
+    <string name="btn_help">Ask for help</string>
+
+    <string name="default_web_client_id">718819344543-en32s1msev786pisou2ho9rgs6ue2lbr.apps.googleusercontent.com</string>
+
+    <string-array name="tfe_pe_device_name">
+        <item>NNAPI</item>
+        <item>GPU</item>
+        <item>CPU</item>
+
+
+    </string-array>
+
+    <string-array name="tfe_pe_camera_name">
+        <item>后置</item>
+        <item>前置</item>
+    </string-array>
+    <string-array name="tfe_pe_model_name">
+        <item>Movenet 標準版</item>
+        <item>Movenet 輕量版</item>
+
+    </string-array>
+</resources>

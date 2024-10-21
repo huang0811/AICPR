@@ -1,0 +1,12 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?android:attr/colorControlHighlight">
+
+    <!-- 按鈕的背景形狀 -->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <!-- 設置按鈕的邊框顏色 -->
+            <solid android:color="#ffffff" /> <!-- 這裡可以設置遮罩顏色 -->
+            <corners android:radius="20dp" /> <!-- 圓角半徑設為 20dp，根據圖片估計 -->
+        </shape>
+    </item>
+</ripple>

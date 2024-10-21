@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/historyBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_historybtn_back"
+        app:layout_constraintDimensionRatio="4:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/historyDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:fontFamily="@font/notosanstc_medium"
+        android:gravity="start"
+        android:text="20241001_1"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/historyBackground"
+        app:layout_constraintStart_toStartOf="@id/historyBackground"
+        app:layout_constraintTop_toTopOf="@id/historyBackground" />
+
+    <TextView
+        android:id="@+id/historyResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/zixinfang_hongchao_bangshu"
+        android:gravity="end"
+        android:shadowColor="#ffffff"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="2"
+        android:text="合格"
+        android:textColor="#1279c6"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/historyBackground"
+        app:layout_constraintEnd_toEndOf="@id/historyBackground"
+        app:layout_constraintStart_toEndOf="@id/historyDate"
+        app:layout_constraintTop_toTopOf="@id/historyBackground" />
+</androidx.constraintlayout.widget.ConstraintLayout>
