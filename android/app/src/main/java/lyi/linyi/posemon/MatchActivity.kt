@@ -16,11 +16,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Transaction
 import com.google.firebase.database.ValueEventListener
 import java.util.*
 import android.os.Vibrator
 import android.os.VibrationEffect
 import android.content.Context
+import com.google.firebase.database.MutableData
 
 class MatchActivity : AppCompatActivity() {
 
@@ -31,6 +33,7 @@ class MatchActivity : AppCompatActivity() {
     private var playerName: String? = "Player" // 預設名稱
     private var isPlayer1: Boolean = true // 預設當前使用者是 Player1
     private var isMatched: Boolean = false // 紀錄是否已完成配對
+    private var roomId: String? = null // 增加一個變數來保存房間ID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,70 +90,118 @@ class MatchActivity : AppCompatActivity() {
 
     // 開始配對邏輯
     private fun startMatching() {
-        // 生成一個唯一的房間ID或使用已存在的房間
-        val roomId = generateOrJoinRoomId()
-        matchRef = database.getReference("matches").child(roomId)
+        generateOrJoinRoomId { roomIdResult ->
+            roomId = roomIdResult
+            matchRef = database.getReference("matches").child(roomId!!)
 
-        // 設置當前玩家為 Player1，並保存用戶名稱
-        matchRef.child("player1").setValue(userId)
-        matchRef.child("player1Name").setValue(playerName)
+            // 嘗試配對：先檢查房間中是否有 Player1
+            matchRef.runTransaction(object : Transaction.Handler {
+                override fun doTransaction(currentData: MutableData): Transaction.Result {
+                    val existingPlayer1 = currentData.child("player1").getValue(String::class.java)
+                    return if (existingPlayer1 == null) {
+                        // 當前用戶成為 player1
+                        currentData.child("player1").value = userId
+                        currentData.child("player1Name").value = playerName
+                        Transaction.success(currentData)
+                    } else if (existingPlayer1 != userId && currentData.child("player2").getValue(String::class.java) == null) {
+                        // 當前用戶成為 player2
+                        currentData.child("player2").value = userId
+                        currentData.child("player2Name").value = playerName
+                        Transaction.success(currentData)
+                    } else {
+                        Transaction.abort()
+                    }
+                }
 
-        // 監聽匹配狀態
-        matchRef.addValueEventListener(object : ValueEventListener {
+                override fun onComplete(databaseError: DatabaseError?, committed: Boolean, currentData: DataSnapshot?) {
+                    if (committed) {
+                        monitorMatchStatus()
+                    } else {
+                        // 配對失敗，可考慮重試或其他處理方式
+                        startMatching() // 重新嘗試配對
+                    }
+                }
+            })
+        }
+    }
+
+    private fun monitorMatchStatus() {
+        val matchListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                val player1Id = snapshot.child("player1").getValue(String::class.java)
                 val player2Id = snapshot.child("player2").getValue(String::class.java)
+
+                val player1Name = snapshot.child("player1Name").getValue(String::class.java) ?: "Player 1"
                 val player2Name = snapshot.child("player2Name").getValue(String::class.java) ?: "Opponent"
 
-                // 若成功找到對手且是另一位玩家
-                if (player2Id != null && player2Id != userId && !isMatched) {
-                    isMatched = true
-                    // 更新 player2Name
-                    matchRef.child("player2Name").setValue(player2Name)
-                    startBattleActivity(isAiOpponent = false, opponentName = player2Name)
-                } else if (player2Id == null && !isMatched) {
-                    // 設置 player2 參數為當前用戶
-                    matchRef.child("player2").setValue(userId)
-                    matchRef.child("player2Name").setValue(playerName)
+                if (player1Id != null && player2Id != null) {
+                    val myName = if (userId == player1Id) player1Name else player2Name
+                    val opponentName = if (userId == player1Id) player2Name else player1Name
+
+                    if (!isMatched) {
+                        isMatched = true
+                        matchRef.removeEventListener(this)  // 移除監聽器
+                        startBattleActivity(isAiOpponent = false, myName = myName, opponentName = opponentName)
+                    }
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-            // 取消匹配的處理
+                // 處理取消的情況
             }
-        })
+        }
 
-        // 設置配對等待時間為 10 秒
+        matchRef.addValueEventListener(matchListener)
+
+        // 設置配對等待時間為 15 秒
         Handler(Looper.getMainLooper()).postDelayed({
-            if (!isMatched) {  // 若未匹配到對手則標記為 AI 對手
+            if (!isMatched) {
                 isMatched = true
-                startBattleActivity(isAiOpponent = true)
+                val aiName = "CPRMAN"
+                matchRef.runTransaction(object : Transaction.Handler {
+                    override fun doTransaction(currentData: MutableData): Transaction.Result {
+                        if (currentData.child("player2").getValue(String::class.java) == null) {
+                            currentData.child("player2").value = "AICPRisChampion"
+                            currentData.child("player2Name").value = aiName
+                            return Transaction.success(currentData)
+                        }
+                        return Transaction.abort()
+                    }
+
+                    override fun onComplete(databaseError: DatabaseError?, committed: Boolean, currentData: DataSnapshot?) {
+                        if (committed) {
+                            matchRef.removeEventListener(matchListener)  // 移除監聽器
+                            startBattleActivity(isAiOpponent = true, myName = playerName ?: "Player", opponentName = aiName)                        }
+                    }
+                })
             }
-        }, 10000) // 10 秒配對等待
+        }, 15000) // 15 秒配對等待
     }
 
     // 生成或加入房間ID
-    private fun generateOrJoinRoomId(): String {
+    private fun generateOrJoinRoomId(callback: (String) -> Unit) {
         var availableRoomId: String? = null
 
-        // 查找是否存在可用房間
         database.getReference("matches").orderByChild("player2").equalTo(null)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for (room in snapshot.children) {
-                        availableRoomId = room.key
-                        break
+                        val player1Id = room.child("player1").getValue(String::class.java)
+                        if (player1Id != null && player1Id != userId) {
+                            availableRoomId = room.key
+                            break
+                        }
                     }
+                    // 返回可用房間ID或創建新房間
+                    callback(availableRoomId ?: database.getReference("matches").push().key ?: UUID.randomUUID().toString())
                 }
 
                 override fun onCancelled(error: DatabaseError) {}
             })
-
-        // 返回可用房間ID或創建新房間
-        return availableRoomId ?: database.getReference("matches").push().key ?: UUID.randomUUID().toString()
     }
 
     // 開始 BattleActivity 並傳遞角色參數
-    private fun startBattleActivity(isAiOpponent: Boolean, opponentName: String = "CPRMAN") {
+    private fun startBattleActivity(isAiOpponent: Boolean, myName: String, opponentName: String) {        val myName = playerName ?: "Player"  // 確保名稱不為 null
         // 震動邏輯
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (vibrator.hasVibrator()) {
@@ -166,8 +217,9 @@ class MatchActivity : AppCompatActivity() {
         val intent = Intent(this, BattleActivity::class.java)
         intent.putExtra("isAiOpponent", isAiOpponent)
         intent.putExtra("isPlayer1", isPlayer1)
-        intent.putExtra("playerName", playerName)
+        intent.putExtra("playerName", myName)
         intent.putExtra("opponentName", opponentName)
+        intent.putExtra("roomId", roomId)
 
         startActivity(intent)
         finish()

@@ -22,7 +22,10 @@ class BattleResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_battle_result)
         initUI()
 
+        // 接收傳遞過來的對戰結果
         val result = intent.getStringExtra("result")
+
+        // 根據對戰結果更新 UI
         updateUIBasedOnResult(result)
     }
 
@@ -61,12 +64,4 @@ class BattleResultActivity : AppCompatActivity() {
             ibHelp.visibility = ImageButton.VISIBLE
         }
     }
-
-    // 播放幫助影片的函數
-//    private fun playHelpVideo() {
-//        val videoUri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.help_video)
-//        val intent = Intent(Intent.ACTION_VIEW, videoUri)
-//        intent.setDataAndType(videoUri, "video/mp4")
-//        startActivity(intent)
-//    }
 }

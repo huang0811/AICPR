@@ -215,7 +215,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
 
         // 初始化 Firebase
         database = FirebaseDatabase.getInstance()
-        matchRef = database.getReference("matches")
         userId = getUserId()
 
         // 獲取從 MatchActivity 傳遞來的參數
@@ -223,6 +222,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         isAiOpponent = intent.getBooleanExtra("isAiOpponent", false)
         playerName = intent.getStringExtra("playerName") ?: "Player"
         opponentName = intent.getStringExtra("opponentName") ?: "Opponent"
+        val roomId = intent.getStringExtra("roomId")  // 獲取房間ID
 
         player1 = findViewById(R.id.player1)
         player2 = findViewById(R.id.player2)
@@ -232,6 +232,19 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         // 根據角色顯示名稱
         player1name.text = if (isPlayer1) playerName else opponentName
         player2name.text = if (isPlayer1) opponentName else playerName
+
+        // 初始化 Firebase 參照
+        if (roomId != null) {
+            matchRef = database.getReference("matches").child(roomId)
+
+            // 檢查房間中的玩家狀態
+            val opponentPath = if (isPlayer1) "player2" else "player1"
+            matchRef.child("playerStatus").child(opponentPath).addValueEventListener(opponentStatusListener)
+        } else {
+            // 處理錯誤情況，例如顯示錯誤訊息或返回主頁
+            Toast.makeText(this, "房間ID無效，無法進行對戰", Toast.LENGTH_SHORT).show()
+            finish()
+        }
 
         // 根據參數設定對手類型
         if (isAiOpponent) {
@@ -275,7 +288,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
 
         btHome.setOnClickListener {
             // 點擊按鈕時，啟動 MainActivity2
-            val intent = Intent(this, MatchActivity::class.java)
+            val intent = Intent(this, SelectActivity::class.java)
             startActivity(intent)
             beaterstop()
 
@@ -428,8 +441,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     }
 
     private fun getUserId(): String? {
-        // 返回當前登入用戶的ID (可以從Firebase Auth或其他地方獲取)
-        // 假設使用Firebase Auth來獲取
         val user = FirebaseAuth.getInstance().currentUser
         return user?.uid
     }
@@ -1194,12 +1205,40 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     }
 
     private fun endBattle(isWinner: Boolean) {
-//        matchRef.removeValue() // 移除Firebase對戰資料
+        // 停止计时器和播放器等资源
+        handler.removeCallbacks(runnable)
+        timer.cancel()
+        player.release()
+        beaterstop()
 
+
+        // 保存对战记录（注意，这里放在移除对战数据之前）
+        saveHistoryRecord(isWinner)
+
+        // 移除Firebase对战数据
+        if (::matchRef.isInitialized) {
+            matchRef.removeValue()
+        }
+
+        // 创建跳转到 BattleResultActivity 的 Intent
         val resultIntent = Intent(this, BattleResultActivity::class.java)
-        resultIntent.putExtra("isWinner", isWinner)
-        startActivity(resultIntent)
-        finish()
+
+        // 传递对战结果
+        val result = if (isWinner) "win" else "lose"
+        resultIntent.putExtra("result", result)
+        resultIntent.putExtra("averageDeep", totalDeep / totalcount)
+        resultIntent.putExtra("averageFrequency", totalFrequency / totalcount)
+        resultIntent.putExtra("averageBothAngle", totalBothAngle / totalcount)
+        resultIntent.putExtra("cycles", maxDiffDataList.size)
+
+        // 跳转到结果页面
+        try {
+            startActivity(resultIntent)
+            finish()
+        } catch (e: Exception) {
+            Log.e("BattleActivity", "跳转到 BattleResultActivity 时发生异常: ${e.message}")
+            Toast.makeText(this, "发生错误，无法跳转到对战结果页面", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun saveHistoryRecord(isWinner: Boolean) {
