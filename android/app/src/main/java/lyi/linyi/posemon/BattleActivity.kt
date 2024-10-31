@@ -106,7 +106,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     private var leftAngleCount = 0
     private var rightAngleCount = 0
     private var correctCount = 0
-    private var maxTranslationX = 2000
+    private var maxTranslationX = 0f
 
     // CSV 和文件相關變數
     private lateinit var bufferedWriter: BufferedWriter
@@ -245,6 +245,10 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
             Toast.makeText(this, "房間ID無效，無法進行對戰", Toast.LENGTH_SHORT).show()
             finish()
         }
+
+        // 設置 maxTranslationX 為螢幕寬度
+        val displayMetrics = resources.displayMetrics
+        maxTranslationX = displayMetrics.widthPixels.toFloat() // 設為螢幕寬度
 
         // 根據參數設定對手類型
         if (isAiOpponent) {
@@ -450,70 +454,72 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         override fun onDataChange(snapshot: DataSnapshot) {
             val opponentData = snapshot.getValue(PlayerStatus::class.java)
             if (opponentData != null) {
-                updateOpponentPosition(opponentData)
+                val opponentProgress = calculateProgress(opponentData)
+                runOnUiThread {
+                    player2.translationX += opponentProgress // 更新對手位置
+                }
             }
         }
 
         override fun onCancelled(error: DatabaseError) {
-            // 處理錯誤
-        }
-    }
-
-    /** 更新對手的位置 */
-    private fun updateOpponentPosition(opponentData: PlayerStatus) {
-        val opponentProgress = calculateOpponentProgress(opponentData)
-        runOnUiThread {
-            player2.translationX = opponentProgress.toFloat() // 確保UI更新
+            // 錯誤處理
         }
     }
 
     /** 計算對手的位移量 */
-    private fun calculateOpponentProgress(opponentData: PlayerStatus): Float {
-        val totalProgress = maxTranslationX.toFloat()
-        val progressFraction = opponentData.cycle.toFloat() / 5f // 假設每5次循環前進一次
-        return totalProgress * progressFraction
+    private fun calculateProgress(playerData: PlayerStatus): Float {
+        var matchCount = 0
+
+        // 判斷深度是否符合標準
+        if (playerData.deep in 5.0..6.0) matchCount++
+
+        // 判斷頻率是否符合標準
+        if (playerData.frequency in 100..120) matchCount++
+
+        // 判斷角度是否符合標準
+        if (playerData.bothAngle > 165) matchCount++
+
+        // 計算單位距離（與玩家一致）
+        val unitDistance = maxTranslationX / 128
+
+        // 根據符合條件的數量來計算前進距離
+        return when (matchCount) {
+            3 -> 2 * unitDistance // 三個條件都符合，前進兩個單位距離
+            2 -> 1 * unitDistance // 兩個條件符合，前進一個單位距離
+            else -> 0f // 其他情況不前進
+        }
     }
 
+
     // 生成和模擬 AI 對手
+    private val aiHandler = Handler(Looper.getMainLooper())
+    private var aiRunnable: Runnable? = null
+
     private fun initializeAndSimulateAiOpponent() {
-        val random = Random()
-
-        // 生成 AI 對手數據
-        repeat(5) {
-            val deep = 5.0 + random.nextDouble() * 1.0 // 深度在 5~6 公分間
-            val frequency = 100 + random.nextInt(21) // 頻率在 100~120 次/分鐘
-            val bothAngle = 165 + random.nextInt(16) // 雙手角度在 165~180 度間
-
-            val aiData = MaxDiffData(deep.toFloat(), frequency.toFloat(), bothAngle.toFloat(), true)
-            aiOpponentDataList.add(aiData)
-        }
-
-        // 更新 AI 對手數據至 Firebase
-        for (data in aiOpponentDataList) {
-            val playerData = mapOf(
-                "deep" to data.deep,
-                "frequency" to data.frequency,
-                "bothAngle" to data.bothAngle,
-                "cycle" to maxDiffDataList.size
-            )
-            matchRef.child("playerStatus").child("player2").setValue(playerData)
-        }
-
-        // 模擬 AI 行為
-        val aiMovementTimer = Timer()
-        aiMovementTimer.scheduleAtFixedRate(object : TimerTask() {
+        aiRunnable = object : Runnable {
             override fun run() {
+                val random = Random()
+                val deep = 4.0 + random.nextDouble() * 3.0 // 深度在 4~7 公分間
+                val frequency = 90 + random.nextInt(41) // 頻率在 90~130 次/分鐘
+                val bothAngle = 155 + random.nextInt(26) // 雙手角度在 155~180 度間
+
+                // 使用通用的 calculateProgress 函數
+                val aiProgress = calculateProgress(PlayerStatus(deep.toFloat(), frequency, bothAngle))
+
                 runOnUiThread {
-                    val aiProgress = 20f // 每次AI角色的前進距離
-                    player2.translationX += aiProgress
+                    player2.translationX += aiProgress // 更新 AI 的位置
 
                     // 檢查是否達到勝利條件
                     if (player2.translationX >= maxTranslationX) {
                         endBattle(isWinner = false) // AI 贏了
+                    } else {
+                        aiHandler.postDelayed(this, 1000) // 每秒執行一次
                     }
                 }
             }
-        }, 0, 1000) // 每秒執行一次
+        }
+
+        aiHandler.post(aiRunnable!!) // 開始執行
     }
 
     override fun onStart() {
@@ -573,8 +579,20 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        // 移除對戰計時的回調
         handler.removeCallbacks(runnable)
         timer.cancel()
+
+        // 移除AI模擬的回調
+        aiRunnable?.let { aiHandler.removeCallbacks(it) }
+
+        // 停止播放器
+        player.release()
+
+        // 停止節拍聲音
+        beaterstop()
+
         Log.d(TAG, "onSaveInstanceState: " + player.currentPosition)
     }
 
@@ -980,6 +998,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                             val averageTimediff = timeDiffs.average()
                                             val averagewristYDiff = String.format("%.2f", wristYDiffs.average().toFloat())
                                             val frequency = 60f / (averageTimediff / 1000f)
+                                            var matchCount = 0
 
                                             val csvData = CsvData(averagewristYDiff.toFloat(), frequency.toInt(), angleLeft!!, angleRight!!,)
                                             dataArrayList.add(csvData)
@@ -987,28 +1006,49 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                             totalcount++
 
                                             // 判斷是否符合CPR條件
-//                                            if(csvData.frequency>=100.0 && csvData.frequency<=120.0){
-//                                                frequencyCount++
+                                            // 計算頻率
+                                            if (csvData.frequency in 100..120) {
+                                                frequencyCount++
+                                            }
+
+                                            // 計算深度
+                                            if (csvData.deep in 5.0..6.0) {
+                                                deepCount++
+                                            }
+
+                                            // 計算角度（左手角度和右手角度的平均值）
+                                            val averageAngle = (csvData.leftAngle + csvData.rightAngle) / 2
+                                            if (averageAngle > 165) {
+                                                leftAngleCount++
+                                                rightAngleCount++
+                                            }
+//                                            // 判斷是否符合CPR條件
+//                                            if (csvData.frequency in 100..120 && csvData.deep in 5.0..6.0 &&
+//                                                csvData.leftAngle > 165 && csvData.rightAngle > 165) {
 //                                                correctCount++
+//                                                incrementPlayerPosition() // 更新進度
+//                                                updatePlayerStatusInFirebase(isPlayer1) // 更新Firebase數據
 //                                            }
-//                                            if(csvData.deep in 5.0..6.0){//只要深度為5到6公分之間，就進行增加
-//                                                deepCount++
-//                                                correctCount++
-//                                            }
-//                                            if(csvData.leftAngle >165){
-//                                                leftAngleCount++
-//                                                correctCount++
-//                                            }
-//                                            if(csvData.rightAngle >165){
-//                                                rightAngleCount++
-//                                                correctCount++
-//                                            }
-                                            // 判斷是否符合CPR條件
-                                            if (csvData.frequency in 100..120 && csvData.deep in 5.0..6.0 &&
-                                                csvData.leftAngle > 165 && csvData.rightAngle > 165) {
-                                                correctCount++
-                                                incrementPlayerPosition() // 更新進度
-                                                updatePlayerStatusInFirebase(isPlayer1) // 更新Firebase數據
+
+                                            // 根據符合條件的數量移動角色
+                                            var playerProgress = 0f
+                                            // 計算每單位前進距離
+                                            val unitDistance = maxTranslationX / 128
+
+                                            // 三個部分都在標準內
+                                            if (deepCount > 0 && frequencyCount > 0 && (leftAngleCount > 0 && rightAngleCount > 0)) {
+                                                playerProgress = 2* unitDistance // 前進兩格
+                                            }
+                                            // 只有兩個部分在標準內
+                                            else if ((deepCount > 0 && frequencyCount > 0) ||
+                                                (deepCount > 0 && (leftAngleCount > 0 || rightAngleCount > 0)) ||
+                                                (frequencyCount > 0 && (leftAngleCount > 0 || rightAngleCount > 0))) {
+                                                playerProgress = unitDistance // 前進一格
+                                            }
+
+                                            // 更新玩家位置
+                                            if (playerProgress > 0) {
+                                                incrementPlayerPosition(playerProgress)
                                             }
 
                                             if (dataArrayList_3.size > 2) {
@@ -1040,7 +1080,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                         tvAngle.text = getString(R.string.tfe_pe_tv_angle,"等待下一個循環")
 
                                         if(willCycle){
-                                            if(maxDiffDataList.size<5) {//&&totalDeep!=0.0
+//                                            if(maxDiffDataList.size<5) {//&&totalDeep!=0.0
                                                 if(totalcount!=0) {
                                                     maxDiffDataList.add(
                                                         MaxDiffData(   //計算所有值的平均
@@ -1060,7 +1100,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                                     totalLeftAngle = 0
                                                     totalRightAngle = 0
                                                     willCycle = false
-                                                }
+//                                                }
                                             }
                                         }
                                     }
@@ -1149,33 +1189,30 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                             }
                         }
 
-                        private fun incrementPlayerPosition() {
-                            val playerProgress = 20f // 每次操作正確角色前進的距離
-
-                            // 更新當前玩家位置
+                        private fun incrementPlayerPosition(playerProgress: Float) {
+                            // 根據角色更新位置
                             if (isPlayer1) {
                                 player1.translationX += playerProgress
                             } else {
                                 player2.translationX += playerProgress
                             }
 
-                            // 更新玩家狀態至 Firebase
+                            // 更新Firebase中的進度
                             updatePlayerStatusInFirebase(isPlayer1)
-
-                            // 檢查勝利條件
                             checkWinCondition()
                         }
 
                         /** 更新玩家狀態至 Firebase */
                         private fun updatePlayerStatusInFirebase(isPlayer1: Boolean) {
+                            val isValid = (totalDeep in 5.0..6.0 && totalFrequency in 100..120 && totalBothAngle > 165)
+
                             val playerData = mapOf(
                                 "deep" to totalDeep / totalcount,
                                 "frequency" to totalFrequency / totalcount,
                                 "bothAngle" to totalBothAngle / totalcount,
-                                "cycle" to maxDiffDataList.size
+                                "isValid" to isValid
                             )
 
-                            // 更新對應的玩家數據
                             val playerPath = if (isPlayer1) "player1" else "player2"
                             matchRef.child("playerStatus").child(playerPath).setValue(playerData)
                         }
@@ -1192,52 +1229,56 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     }
 
     private fun checkWinCondition() {
-        // 如果 player1 達到終點
-        if (player1.translationX >= maxTranslationX) {
-            // 如果當前用戶是 player1，則用戶獲勝；否則對手（AI 或 player2）獲勝
-            endBattle(isWinner = !isPlayer1)
+        // 如果自己的角色達到終點
+        if ((isPlayer1 && player1.translationX >= maxTranslationX) ||
+            (!isPlayer1 && player2.translationX >= maxTranslationX)) {
+            endBattle(isWinner = true) // 自己的角色贏
+            return
         }
-        // 如果 player2 達到終點
-        else if (player2.translationX >= maxTranslationX) {
-            // 如果當前用戶是 player2，則用戶獲勝；否則對手（player1）獲勝
-            endBattle(isWinner = isPlayer1)
+
+        // 如果對方的角色達到終點
+        if ((isPlayer1 && player2.translationX >= maxTranslationX) ||
+            (!isPlayer1 && player1.translationX >= maxTranslationX)) {
+            endBattle(isWinner = false) // 對方的角色贏
+            return
         }
     }
 
     private fun endBattle(isWinner: Boolean) {
-        // 停止计时器和播放器等资源
+        // 停止所有背景操作
         handler.removeCallbacks(runnable)
         timer.cancel()
         player.release()
         beaterstop()
 
+        // 避免重複跳轉
+        if (isFinishing) return
 
-        // 保存对战记录（注意，这里放在移除对战数据之前）
-        saveHistoryRecord(isWinner)
-
-        // 移除Firebase对战数据
-        if (::matchRef.isInitialized) {
-            matchRef.removeValue()
-        }
-
-        // 创建跳转到 BattleResultActivity 的 Intent
+        // 創建跳轉到 BattleResultActivity 的 Intent
         val resultIntent = Intent(this, BattleResultActivity::class.java)
 
-        // 传递对战结果
-        val result = if (isWinner) "win" else "lose"
-        resultIntent.putExtra("result", result)
+        // 傳遞對戰結果
+        resultIntent.putExtra("result", if (isWinner) "win" else "lose")
         resultIntent.putExtra("averageDeep", totalDeep / totalcount)
         resultIntent.putExtra("averageFrequency", totalFrequency / totalcount)
         resultIntent.putExtra("averageBothAngle", totalBothAngle / totalcount)
         resultIntent.putExtra("cycles", maxDiffDataList.size)
 
-        // 跳转到结果页面
+        // 跳轉到結果頁面
         try {
             startActivity(resultIntent)
             finish()
         } catch (e: Exception) {
-            Log.e("BattleActivity", "跳转到 BattleResultActivity 时发生异常: ${e.message}")
-            Toast.makeText(this, "发生错误，无法跳转到对战结果页面", Toast.LENGTH_SHORT).show()
+            Log.e("BattleActivity", "跳轉到 BattleResultActivity 時發生異常: ${e.message}")
+            Toast.makeText(this, "發生錯誤，無法跳轉到對戰結果頁面", Toast.LENGTH_SHORT).show()
+        }
+
+        // 保存對戰記錄
+        saveHistoryRecord(isWinner)
+
+        // 移除Firebase對戰數據
+        if (::matchRef.isInitialized) {
+            matchRef.removeValue()
         }
     }
 

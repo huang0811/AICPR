@@ -41,7 +41,7 @@ class BattleResultActivity : AppCompatActivity() {
         }
 
         ibRestart.setOnClickListener {
-            startActivity(Intent(this, BattleActivity::class.java))
+            startActivity(Intent(this, MatchActivity::class.java))
             finish()
         }
 
