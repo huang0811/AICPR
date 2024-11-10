@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "718819344543",
+    "project_id": "aicpr-e6137",
+    "storage_bucket": "aicpr-e6137.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718819344543:android:b1ca8224559f721a2b62aa",
+        "android_client_info": {
+          "package_name": "lyi.linyi.posemon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718819344543-npnvvut12f0u3gb0ue7g7d6mg3b29a3l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lyi.linyi.posemon",
+            "certificate_hash": "7a1c31066cf18cdfb6c056cf0d0538abf36f8433"
+          }
+        },
+        {
+          "client_id": "718819344543-en32s1msev786pisou2ho9rgs6ue2lbr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAj_wrKpWs6TLtnBm8ywihtJxDYVmMT2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718819344543-en32s1msev786pisou2ho9rgs6ue2lbr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
