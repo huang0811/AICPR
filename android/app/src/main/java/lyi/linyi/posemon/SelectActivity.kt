@@ -62,7 +62,7 @@ class SelectActivity : AppCompatActivity() {
         }
 
         profileButton.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java) // 假設你有一個 ProfileActivity
+            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
 //

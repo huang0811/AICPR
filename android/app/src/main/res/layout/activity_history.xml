@@ -16,7 +16,7 @@
       android:layout_height="65dp"
       android:background="@null"
       android:scaleType="fitCenter"
-      android:src="@drawable/ic_gary_back"
+      android:src="@drawable/ic_back"
       android:contentDescription="@string/btn_home"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +38,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
+  <!-- 模式切換按鈕 -->
   <LinearLayout
       android:id="@+id/modeButtons"
       android:layout_width="match_parent"
@@ -58,7 +59,8 @@
         android:background="@null"
         android:contentDescription="@string/normal_mode_description"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_normal_mode" />
+        android:src="@drawable/ic_normal_mode"
+        android:alpha="0.5"/>
 
     <ImageButton
         android:id="@+id/battle_mode"
@@ -68,7 +70,8 @@
         android:background="@null"
         android:contentDescription="@string/battle_mode_description"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_battle_mode" />
+        android:src="@drawable/ic_battle_mode"
+        android:alpha="1"/>
   </LinearLayout>
 
   <!-- 歷史紀錄清單 -->

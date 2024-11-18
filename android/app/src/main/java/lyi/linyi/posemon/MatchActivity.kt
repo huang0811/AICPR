@@ -34,6 +34,7 @@ class MatchActivity : AppCompatActivity() {
     private var isPlayer1: Boolean = true // 預設當前使用者是 Player1
     private var isMatched: Boolean = false // 紀錄是否已完成配對
     private var roomId: String? = null // 增加一個變數來保存房間ID
+    private var matchListener: ValueEventListener? = null // 儲存配對監聽器
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,11 +59,31 @@ class MatchActivity : AppCompatActivity() {
         btHome.setOnClickListener {
             val intent = Intent(this, SelectActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         // 綁定心臟 ImageView 並設置心跳動畫
         val heartImageView = findViewById<ImageView>(R.id.heart)
         startHeartBeatAnimation(heartImageView)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cancelMatching() // 取消匹配並移除配對資料
+    }
+
+    override fun onPause() {
+        super.onPause()
+        cancelMatching() // 取消匹配並移除配對資料
+    }
+
+    // 取消匹配並清除 Firebase 中的匹配房間
+    private fun cancelMatching() {
+        removeMatchListener() // 移除監聽器
+        roomId?.let {
+            matchRef = database.getReference("matches").child(it)
+            matchRef.removeValue() // 刪除匹配房間資料
+        }
     }
 
     // 心跳動畫的函式
@@ -140,7 +161,8 @@ class MatchActivity : AppCompatActivity() {
 
                     if (!isMatched) {
                         isMatched = true
-                        matchRef.removeEventListener(this)  // 移除監聽器
+//                        matchRef.removeEventListener(this)  // 移除監聽器
+                        removeMatchListener()  // 移除監聽器
                         startBattleActivity(isAiOpponent = false, myName = myName, opponentName = opponentName)
                     }
                 }
@@ -153,7 +175,7 @@ class MatchActivity : AppCompatActivity() {
 
         matchRef.addValueEventListener(matchListener)
 
-        // 設置配對等待時間為 15 秒
+        // 設置配對等待時間為 10 秒
         Handler(Looper.getMainLooper()).postDelayed({
             if (!isMatched) {
                 isMatched = true
@@ -170,12 +192,17 @@ class MatchActivity : AppCompatActivity() {
 
                     override fun onComplete(databaseError: DatabaseError?, committed: Boolean, currentData: DataSnapshot?) {
                         if (committed) {
-                            matchRef.removeEventListener(matchListener)  // 移除監聽器
+//                            matchRef.removeEventListener(matchListener)  // 移除監聽器
+                            removeMatchListener()  // 移除監聽器
                             startBattleActivity(isAiOpponent = true, myName = playerName ?: "Player", opponentName = aiName)                        }
                     }
                 })
             }
-        }, 15000) // 15 秒配對等待
+        }, 10000) // 10 秒配對等待
+    }
+
+    private fun removeMatchListener() {
+        matchListener?.let { matchRef.removeEventListener(it) }
     }
 
     // 生成或加入房間ID
@@ -201,7 +228,8 @@ class MatchActivity : AppCompatActivity() {
     }
 
     // 開始 BattleActivity 並傳遞角色參數
-    private fun startBattleActivity(isAiOpponent: Boolean, myName: String, opponentName: String) {        val myName = playerName ?: "Player"  // 確保名稱不為 null
+    private fun startBattleActivity(isAiOpponent: Boolean, myName: String, opponentName: String) {
+        val myName = playerName ?: "Player"  // 確保名稱不為 null
         // 震動邏輯
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (vibrator.hasVibrator()) {

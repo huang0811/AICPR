@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C0B6AE" >
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="@null"
+        android:contentDescription="@string/btn_home"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060"  />
+
+    <ImageView
+        android:id="@+id/historyTitle"
+        android:layout_width="141dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="28dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_historyview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 結果圖片和文字 -->
+
+    <ImageView
+        android:id="@+id/trophyImageView"
+        android:layout_width="406dp"
+        android:layout_height="307dp"
+        android:layout_marginTop="24dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_trophy"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/historyTitle" />
+
+    <ImageView
+        android:id="@+id/grimReaperImageView"
+        android:layout_width="336dp"
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_grim_reaper"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/historyTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 日期和時間 -->
+
+    <!-- 對戰模式表格 -->
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="468dp"
+        android:fontFamily="@font/joystix_monospace"
+        android:text="DATE:"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/joystix_monospace"
+        android:text="TIME:"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dateTextView" />
+
+    <TableLayout
+        android:id="@+id/battleModeTableLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:background="#C0B6AE"
+        app:layout_constraintTop_toBottomOf="@id/timeTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 表頭行 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/border">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:padding="3dp"
+                android:src="@drawable/ic_cpr" />
+            <TextView android:text="深度" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:text="頻率" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:text="角度" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:text="循環" style="@style/TableRowText" android:minHeight="75dp"/>
+        </TableRow>
+
+        <!-- 平均數據行 -->
+        <TableRow>
+            <TextView android:text="平均" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/avgDepthTextView" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/avgFrequencyTextView" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/avgAngleTextView" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/avgCycleTextView" style="@style/TableRowText" android:minHeight="75dp"/>
+        </TableRow>
+
+    </TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

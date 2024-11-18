@@ -93,6 +93,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@null"
+        android:visibility="gone"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_profile"
         app:layout_constraintBottom_toBottomOf="parent"

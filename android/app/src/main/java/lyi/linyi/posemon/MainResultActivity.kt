@@ -1,30 +1,27 @@
 package lyi.linyi.posemon
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.widget.*
-import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.itextpdf.io.font.PdfEncodings
-import com.itextpdf.io.font.constants.StandardFonts
 import com.itextpdf.kernel.colors.ColorConstants
 import com.itextpdf.kernel.font.PdfFontFactory
-import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfReader
 import com.itextpdf.kernel.pdf.PdfWriter
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas
-import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants
 import com.itextpdf.layout.Document
 import com.itextpdf.layout.element.Paragraph
-import com.itextpdf.layout.element.Table
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -33,24 +30,29 @@ import java.util.Date
 import java.util.Locale
 
 class MainResultActivity : AppCompatActivity() {
-
     private lateinit var btnReport: ImageButton
     private lateinit var btnRestart: ImageButton
     private lateinit var btnHistory: ImageButton
     private lateinit var btnHome: ImageButton
     private lateinit var tableLayout: TableLayout
     private lateinit var dataValues: MutableList<MutableList<String>>
+    private lateinit var userID: String
+    private lateinit var userName: String
+    private lateinit var firestore: FirebaseFirestore
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_result)
 
+        // 初始化 Firestore
+        firestore = FirebaseFirestore.getInstance()
+
         // 從 SharedPreferences 中獲取 userID 和 userName
         val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
-        val userID = sharedPref.getString("userID", "Unknown") ?: "Unknown"
-        val userName = sharedPref.getString("userName", "Unknown") ?: "Unknown"
-        val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+        userID = sharedPref.getString("userID", "Unknown") ?: "Unknown"
+        userName = sharedPref.getString("userName", "Unknown") ?: "Unknown"
+
 
         // 綁定按鈕和表格佈局
         btnReport = findViewById(R.id.btnReport)
@@ -60,6 +62,9 @@ class MainResultActivity : AppCompatActivity() {
         tableLayout = findViewById(R.id.tableLayout)
 
         updateTableView() // 更新表格
+
+        // 在結束操作後自動儲存歷史紀錄
+        saveHistoryAndGeneratePDF()
 
         btnReport.setOnClickListener {
             val depthStatus = dataValues[6][1]
@@ -83,7 +88,18 @@ class MainResultActivity : AppCompatActivity() {
         }
 
         btnHistory.setOnClickListener {
-            // 這裡添加歷史記錄邏輯
+            // 檢查是否已登入
+            if (userID == "Unknown" || userName == "Unknown") {
+                // 提示未登入，並跳轉至 LoginActivity
+                Toast.makeText(this, "未登入無法使用此功能", Toast.LENGTH_SHORT).show()
+                val loginIntent = Intent(this, LoginActivity::class.java)
+                startActivity(loginIntent)
+                finish() // 關閉當前頁面
+            } else {
+                // 若已登入，則進入歷史紀錄頁面
+                val historyIntent = Intent(this, HistoryActivity::class.java)
+                startActivity(historyIntent)
+            }
         }
 
         btnHome.setOnClickListener {
@@ -102,7 +118,7 @@ class MainResultActivity : AppCompatActivity() {
             mutableListOf("第三次", "0", "0", "0", "未完成"),
             mutableListOf("第四次", "0", "0", "0", "未完成"),
             mutableListOf("第五次", "0", "0", "0", "未完成"),
-            mutableListOf("是否合格", "合格", "合格", "合格", "合格")
+            mutableListOf("結果", "合格", "合格", "合格", "合格")
         )
         val maxDiffDataList = intent.getParcelableArrayListExtra<MaxDiffData>("maxDiffDataList")
         if (maxDiffDataList != null) {
@@ -183,7 +199,13 @@ class MainResultActivity : AppCompatActivity() {
                             view.text = value.toString()
 
                             // 根據數據判斷是否符合標準，如果不符合，則標紅字
-                            if (rowIndex > 0 && rowIndex < 6) { // 針對數據行
+                            if (rowIndex == 6) { // 第六行 "是否合格"
+                                if (value == "不合格") {
+                                    view.setTextColor(Color.RED) // 設置紅色
+                                } else {
+                                    view.setTextColor(Color.BLACK) // 設置黑色
+                                }
+                            } else if (rowIndex > 0 && rowIndex < 6) { // 針對數據行
                                 when (colIndex) {
                                     1 -> { // 深度列
                                         val depthValue = value.toFloatOrNull()
@@ -243,13 +265,15 @@ class MainResultActivity : AppCompatActivity() {
         cycleStatus: String,
         result: String
     ): File {
+        val timestamp = SimpleDateFormat("yyyy-MM-dd_HHmmss", Locale.getDefault()).format(Date()) // 使用時間戳生成唯一的檔案名稱
+        val fileName = "aicpr_report_filled_$timestamp.pdf" // 新的檔案名稱
         // 使用 getExternalFilesDir() 而不是直接訪問公共存儲目錄
         val pdfTemplateStream: InputStream = assets.open("aicpr_report.pdf")  // 從 assets 資料夾讀取
         val documentsDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         if (documentsDir != null && !documentsDir.exists()) {
             documentsDir.mkdirs() // 確保目錄存在
         }
-        val filePath = "$documentsDir/aicpr_report_filled.pdf"
+        val filePath = "$documentsDir/$fileName"
         val outputFile = File(filePath)
 
         val pdfReader = PdfReader(pdfTemplateStream)
@@ -325,5 +349,101 @@ class MainResultActivity : AppCompatActivity() {
                 Toast.makeText(this, "無法打開 PDF 文件", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun saveHistoryAndGeneratePDF() {
+        val detailedDataList = mutableListOf<Map<String, Any>>()
+        for (i in 1..5) { // 假設最多有五次操作數據
+            if (i < dataValues.size) {
+                val rowData = dataValues[i]
+                val cycleCompleted = rowData[4] == "完成"
+
+                val dataMap = mapOf(
+                    "depth" to (rowData[1].toFloatOrNull() ?: 0f),
+                    "frequency" to (rowData[2].toFloatOrNull() ?: 0f),
+                    "angle" to (rowData[3].toFloatOrNull() ?: 0f),
+                    "cycleCompleted" to cycleCompleted
+                )
+                detailedDataList.add(dataMap)
+            }
+        }
+        val resultData = dataValues.getOrNull(6) ?: listOf("Unknown", "Unknown", "Unknown", "Unknown", "Unknown")
+        // Generate the PDF with the results and store the resulting qualification (合格/不合格)
+        val qualificationResult = if (listOf(resultData[1], resultData[2], resultData[3], resultData[4]).contains("不合格")) "不合格" else "合格"
+        val currentTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+
+        // 生成 PDF 文件
+        val file = generateTestReportPDF(
+            userID,
+            userName,
+            resultData.getOrNull(1) ?: "Unknown",
+            resultData.getOrNull(2) ?: "Unknown",
+            resultData.getOrNull(3) ?: "Unknown",
+            resultData.getOrNull(4) ?: "Unknown",
+            qualificationResult // Pass the final qualification result
+        )
+
+        // Prepare history data to save in Firestore
+        val evaluationResults = mapOf(
+            "userID" to userID,
+            "userName" to userName,
+            "timestamp" to currentTime,
+            "mode" to "normal",
+            "evaluationResults" to dataValues[6].mapIndexed { index, value -> index.toString() to value }.toMap(),  // 將鍵轉換為字串
+            "detailedData" to detailedDataList
+        )
+
+        uploadPDFAndSaveHistory(file, evaluationResults, qualificationResult)
+    }
+
+    private fun uploadPDFAndSaveHistory(file: File, evaluationResults: Map<String, Any>, qualificationResult: String) {
+        val pdfRef = FirebaseStorage.getInstance().reference.child("reports/${file.name}")
+        val uri = Uri.fromFile(file)
+
+        pdfRef.putFile(uri)
+            .addOnSuccessListener {
+                pdfRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                    // 獲取 PDF 下載連結，並將其添加到歷史紀錄
+                    val dataWithPdfUrl = evaluationResults.toMutableMap()
+                    dataWithPdfUrl["userID"] = userID
+                    dataWithPdfUrl["pdfUrl"] = downloadUrl.toString()
+                    dataWithPdfUrl["qualificationResult"] = qualificationResult // Add the qualification result to history data
+                    dataWithPdfUrl["mode"] = "normal"
+
+                    // 使用 document() 方法获取自动生成的 documentId
+                    val historyRef = firestore.collection("user_history").document()
+                    val documentId = historyRef.id // 獲取生成的 ID
+                    dataWithPdfUrl["documentId"] = documentId // 添加 documentId 到数据中
+
+                    // 保存紀錄到 Firestore 並檢查紀錄數量
+                    saveHistoryToFirestore(historyRef, dataWithPdfUrl)
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "PDF 上傳失敗", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun saveHistoryToFirestore(historyRef: DocumentReference, historyData: Map<String, Any>) {
+        historyRef.set(historyData) // 使用 set 方法保存数据
+            .addOnSuccessListener {
+                Toast.makeText(this, "歷史紀錄已保存", Toast.LENGTH_SHORT).show()
+                Log.d("FirestoreSave", "Data saved with documentId: ${historyRef.id}")
+                // 確保紀錄數量不超過 50 筆
+                val historyCollection = firestore.collection("user_history")
+                historyCollection.orderBy("timestamp").get()
+                    .addOnSuccessListener { documents ->
+                        if (documents.size() > 50) {
+                            val excessDocuments = documents.documents.take(documents.size() - 50)
+                            for (document in excessDocuments) {
+                                historyCollection.document(document.id).delete()
+                            }
+                        }
+                    }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "歷史紀錄保存失敗", Toast.LENGTH_SHORT).show()
+                Log.e("FirestoreSave", "Error saving data: ", e)
+            }
     }
 }

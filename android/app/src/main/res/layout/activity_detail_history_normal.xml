@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C0B6AE" >
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="@null"
+        android:contentDescription="@string/btn_home"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060"  />
+
+    <ImageView
+        android:id="@+id/historyTitle"
+        android:layout_width="141dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="28dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_historyview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/joystix_monospace"
+        android:text="DATE:"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historyTitle" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="#C0B6AE"
+        app:layout_constraintTop_toBottomOf="@id/dateTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 表頭行 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/border">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:padding="3dp"
+                android:src="@drawable/ic_cpr" />
+            <TextView android:text="深度" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:text="頻率" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:text="角度" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:text="循環" style="@style/TableRowText" android:minHeight="75dp"/>
+        </TableRow>
+
+        <!-- 第一次數據行 -->
+        <TableRow>
+            <TextView android:text="第一次" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFirstDepth" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFirstFrequency" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFirstAngle" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFirstCycle" style="@style/TableRowText" android:minHeight="75dp"/>
+        </TableRow>
+
+        <!-- 第二次數據行 -->
+        <TableRow>
+            <TextView android:text="第二次" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvSecondDepth" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvSecondFrequency" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvSecondAngle" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvSecondCycle" style="@style/TableRowText" android:minHeight="75dp"/>
+        </TableRow>
+
+        <!-- 第三次數據行 -->
+        <TableRow>
+            <TextView android:text="第三次" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvThirdDepth" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvThirdFrequency" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvThirdAngle" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvThirdCycle" style="@style/TableRowText" android:minHeight="75dp"/>
+        </TableRow>
+
+        <!-- 第四次數據行 -->
+        <TableRow>
+            <TextView android:text="第四次" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFourthDepth" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFourthFrequency" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFourthAngle" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFourthCycle" style="@style/TableRowText" android:minHeight="75dp"/>
+        </TableRow>
+
+        <!-- 第五次數據行 -->
+        <TableRow>
+            <TextView android:text="第五次" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFifthDepth" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFifthFrequency" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFifthAngle" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvFifthCycle" style="@style/TableRowText" android:minHeight="75dp"/>
+        </TableRow>
+
+        <!-- 是否合格行 -->
+        <TableRow>
+            <TextView android:text="結果" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvIsPassDepth" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvIsPassFrequency" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvIsPassAngle" style="@style/TableRowText" android:minHeight="75dp"/>
+            <TextView android:id="@+id/tvIsPassCycle" style="@style/TableRowText" android:minHeight="75dp"/>
+        </TableRow>
+    </TableLayout>
+
+    <!-- PDF 按鈕 -->
+    <ImageButton
+        android:id="@+id/btnReport"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/ripple_effect"
+        android:contentDescription="@string/btn_report"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_report"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -105,7 +105,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     private var deepCount = 0
     private var leftAngleCount = 0
     private var rightAngleCount = 0
-    private var correctCount = 0
     private var maxTranslationX = 0f
 
     // CSV 和文件相關變數
@@ -145,6 +144,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     private var seconds = 0
     private val handler = Handler()
     private lateinit var runnable: Runnable
+    private var startTime: Long = 0L
 
     // 預設計算設備和模型
     private var device = Device.NNAPI
@@ -212,6 +212,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle)
+        startTime = System.currentTimeMillis()  // 計時開始時間
 
         // 初始化 Firebase
         database = FirebaseDatabase.getInstance()
@@ -312,18 +313,17 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         var shallowPlayerFlag=true
         val timer = timer(period = 400) {
             val maxDiff = dataArrayList.maxByOrNull { it.deep }
-
-            if(maxDiffDataList.size>=5 && uncprcount>5 || player1.translationX == maxTranslationX.toFloat()){
-                // 創建 Intent 將列表傳遞到 ResultActivity
-                intent.putParcelableArrayListExtra("maxDiffDataList", maxDiffDataList)
-                intent.putExtra("EXTRA_TIME", seconds)
-                startActivity(intent)
-                beaterstop()
-
-                uncprcount=0
-                // 關閉當前的 MainActivity
-                finish()
-            }
+//            if(maxDiffDataList.size>=5 && uncprcount>5 || player1.translationX == maxTranslationX.toFloat()){
+//                // 創建 Intent 將列表傳遞到 ResultActivity
+//                intent.putParcelableArrayListExtra("maxDiffDataList", maxDiffDataList)
+//                intent.putExtra("EXTRA_TIME", seconds)
+//                startActivity(intent)
+//                beaterstop()
+//
+//                uncprcount=0
+//                // 關閉當前的 MainActivity
+//                finish()
+//            }
 
             if (maxDiff != null) {
                 if (csvsave){//只要csvsave為true，就進行儲存
@@ -417,7 +417,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         setupPlayer()
         dataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, "ExoPlayerDemo"))
 
-
         getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
@@ -505,12 +504,13 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
 
                 // 使用通用的 calculateProgress 函數
                 val aiProgress = calculateProgress(PlayerStatus(deep.toFloat(), frequency, bothAngle))
+                val player2RightEdge = player2.translationX + player2.width.toFloat()
 
                 runOnUiThread {
                     player2.translationX += aiProgress // 更新 AI 的位置
 
                     // 檢查是否達到勝利條件
-                    if (player2.translationX >= maxTranslationX) {
+                    if (player2RightEdge >= maxTranslationX) {
                         endBattle(isWinner = false) // AI 贏了
                     } else {
                         aiHandler.postDelayed(this, 1000) // 每秒執行一次
@@ -560,7 +560,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     override fun onResume() {
         cameraSource?.resume()
         super.onResume()
-
+        handler.post(runnable) // 恢復計時器
         setupPlayer()
         beater()
     }
@@ -569,6 +569,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         cameraSource?.close()
         cameraSource = null
         super.onPause()
+        handler.removeCallbacks(runnable) // 暫停計時器
     }
 
     override fun onStop() {
@@ -597,9 +598,11 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     }
 
     private fun updateTimer() {
-        seconds++
-        val minutes = seconds / 60
-        val remainingSeconds = seconds % 60
+        // 計算從開始計時到目前的時間差
+        val elapsedMillis = System.currentTimeMillis() - startTime
+        val elapsedSeconds = (elapsedMillis / 1000).toInt()
+        val minutes = elapsedSeconds / 60
+        val remainingSeconds = elapsedSeconds % 60
 
         // 格式化時間顯示，補零
         val timeString = String.format("時間:  %02d:%02d", minutes, remainingSeconds)
@@ -926,7 +929,8 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                 (endTime!! - startTime!!).toInt()
             }
 
-            val rate=3.9 //距離安妮85公分(統計版)
+//            val rate=3.9 //距離安妮85公分(統計版)
+            val rate=3.7 //距離安妮85公分(統計版) 數據越小深度越深
             if (timediff<500&&timediff>300&&!outrange) {
                 callback((500-(500-timediff)*0.1).toInt(), String.format("%.2f", (wristY2 - initialHeight!!)/ rate).toFloat())//
             }
@@ -1005,52 +1009,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                             dataArrayList_3.add(csvData)
                                             totalcount++
 
-                                            // 判斷是否符合CPR條件
-                                            // 計算頻率
-                                            if (csvData.frequency in 100..120) {
-                                                frequencyCount++
-                                            }
-
-                                            // 計算深度
-                                            if (csvData.deep in 5.0..6.0) {
-                                                deepCount++
-                                            }
-
-                                            // 計算角度（左手角度和右手角度的平均值）
-                                            val averageAngle = (csvData.leftAngle + csvData.rightAngle) / 2
-                                            if (averageAngle > 165) {
-                                                leftAngleCount++
-                                                rightAngleCount++
-                                            }
-//                                            // 判斷是否符合CPR條件
-//                                            if (csvData.frequency in 100..120 && csvData.deep in 5.0..6.0 &&
-//                                                csvData.leftAngle > 165 && csvData.rightAngle > 165) {
-//                                                correctCount++
-//                                                incrementPlayerPosition() // 更新進度
-//                                                updatePlayerStatusInFirebase(isPlayer1) // 更新Firebase數據
-//                                            }
-
-                                            // 根據符合條件的數量移動角色
-                                            var playerProgress = 0f
-                                            // 計算每單位前進距離
-                                            val unitDistance = maxTranslationX / 128
-
-                                            // 三個部分都在標準內
-                                            if (deepCount > 0 && frequencyCount > 0 && (leftAngleCount > 0 && rightAngleCount > 0)) {
-                                                playerProgress = 2* unitDistance // 前進兩格
-                                            }
-                                            // 只有兩個部分在標準內
-                                            else if ((deepCount > 0 && frequencyCount > 0) ||
-                                                (deepCount > 0 && (leftAngleCount > 0 || rightAngleCount > 0)) ||
-                                                (frequencyCount > 0 && (leftAngleCount > 0 || rightAngleCount > 0))) {
-                                                playerProgress = unitDistance // 前進一格
-                                            }
-
-                                            // 更新玩家位置
-                                            if (playerProgress > 0) {
-                                                incrementPlayerPosition(playerProgress)
-                                            }
-
                                             if (dataArrayList_3.size > 2) {
                                                 val maxDiff_3 = dataArrayList_3.maxByOrNull { it.deep }
 
@@ -1068,6 +1026,47 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                                             maxDiff_3.leftAngle,
                                                             maxDiff_3.rightAngle
                                                         ) // 將最大的數據寫入 CSV 檔案
+                                                    }
+                                                    // 判斷是否符合CPR條件
+                                                    // 計算頻率
+                                                    if (maxDiff_3.frequency in 100..120) {
+                                                        frequencyCount++
+                                                        matchCount++
+                                                    }
+
+                                                    // 計算深度
+                                                    if (maxDiff_3.deep in 5.0..6.0) {
+                                                        deepCount++
+                                                        matchCount++
+                                                    }
+
+                                                    // 計算角度（左手角度和右手角度的平均值）
+                                                    val averageAngle = (maxDiff_3.leftAngle + maxDiff_3.rightAngle) / 2
+                                                    if (averageAngle > 165) {
+                                                        leftAngleCount++
+                                                        rightAngleCount++
+                                                        matchCount++
+                                                    }
+
+                                                    // 根據符合條件的數量移動角色
+                                                    var playerProgress = 0f
+                                                    // 計算每單位前進距離
+                                                    val unitDistance = maxTranslationX / 384
+
+                                                    // 三個部分都在標準內
+                                                    if (matchCount > 2) {
+                                                        playerProgress = 2 * unitDistance // 前進兩格
+                                                    }
+                                                    // 只有兩個部分在標準內
+                                                    else if (matchCount > 1) {
+                                                        playerProgress = unitDistance // 前進一格
+                                                    }else{
+                                                        matchCount = 0
+                                                    }
+
+                                                    // 更新玩家位置
+                                                    if (playerProgress > 0) {
+                                                        incrementPlayerPosition(playerProgress)
                                                     }
                                                     dataArrayList_3.clear()
                                                 }
@@ -1229,22 +1228,35 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     }
 
     private fun checkWinCondition() {
+        // 獲取 player1 和 player2 的寬度
+        val player1RightEdge = player1.translationX + player1.width.toFloat()
+        val player2RightEdge = player2.translationX + player2.width.toFloat()
+
         // 如果自己的角色達到終點
-        if ((isPlayer1 && player1.translationX >= maxTranslationX) ||
-            (!isPlayer1 && player2.translationX >= maxTranslationX)) {
+        if ((isPlayer1 && (player1RightEdge) >= maxTranslationX) ||
+            (!isPlayer1 && (player2RightEdge) >= maxTranslationX)) {
             endBattle(isWinner = true) // 自己的角色贏
             return
         }
 
         // 如果對方的角色達到終點
-        if ((isPlayer1 && player2.translationX >= maxTranslationX) ||
-            (!isPlayer1 && player1.translationX >= maxTranslationX)) {
+        if ((isPlayer1 && (player2RightEdge) >= maxTranslationX) ||
+            (!isPlayer1 && (player1RightEdge) >= maxTranslationX)) {
             endBattle(isWinner = false) // 對方的角色贏
+            return
+        }
+
+        // 如果是 AI 對手，檢查其是否達到終點
+        if (isAiOpponent && player2RightEdge >= maxTranslationX) {
+            endBattle(isWinner = false) // AI 贏
             return
         }
     }
 
     private fun endBattle(isWinner: Boolean) {
+        // 确保 totalcount 不为零，避免除零错误
+        val safeTotalCount = if (totalcount > 0) totalcount else 1
+
         // 停止所有背景操作
         handler.removeCallbacks(runnable)
         timer.cancel()
@@ -1259,10 +1271,14 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
 
         // 傳遞對戰結果
         resultIntent.putExtra("result", if (isWinner) "win" else "lose")
-        resultIntent.putExtra("averageDeep", totalDeep / totalcount)
-        resultIntent.putExtra("averageFrequency", totalFrequency / totalcount)
-        resultIntent.putExtra("averageBothAngle", totalBothAngle / totalcount)
+        resultIntent.putExtra("averageDeep", totalDeep / safeTotalCount)
+        resultIntent.putExtra("averageFrequency", totalFrequency / safeTotalCount)
+        resultIntent.putExtra("averageBothAngle", totalBothAngle / safeTotalCount)
         resultIntent.putExtra("cycles", maxDiffDataList.size)
+
+        // 傳遞 maxDiffDataList
+        resultIntent.putParcelableArrayListExtra("maxDiffDataList", maxDiffDataList)
+        resultIntent.putExtra("EXTRA_TIME", seconds)
 
         // 跳轉到結果頁面
         try {
@@ -1278,8 +1294,28 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
 
         // 移除Firebase對戰數據
         if (::matchRef.isInitialized) {
-            matchRef.removeValue()
+            matchRef.removeValue().addOnSuccessListener {
+                // 移除成功
+            }.addOnFailureListener { exception ->
+                Log.e("BattleActivity", "移除對戰數據時發生異常: ${exception.message}")
+                Toast.makeText(this, "移除對戰數據失敗", Toast.LENGTH_SHORT).show()
+            }
         }
+
+        // 清除統計數據
+        resetStatistics()
+    }
+
+    private fun resetStatistics() {
+        totalDeep = 0.0
+        totalFrequency = 0
+        totalLeftAngle = 0
+        totalRightAngle = 0
+        totalBothAngle = 0
+        totalcount = 0
+        uncprcount = 0 // 重置 uncprcount
+        cprcount = 0   // 重置 cprcount
+        maxDiffDataList.clear() // 清空數據列表
     }
 
     private fun saveHistoryRecord(isWinner: Boolean) {
@@ -1377,6 +1413,45 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
             // 使用videoUri讀取影片文件
             // ...
         }
+    }
+
+    private fun stopBackgroundOperations() {
+        // 停止計時和計時器
+        handler.removeCallbacks(runnable)
+        timer.cancel()
+
+        // 停止 AI 模擬
+        aiRunnable?.let { aiHandler.removeCallbacks(it) }
+
+        // 停止播放器
+        if (::player.isInitialized) {
+            player.release()
+        }
+
+        // 停止節拍聲音
+        beaterstop()
+
+        // 如果需要，將當前進度保存到 Firebase
+        if (userId != null && totalcount > 0) {
+            saveHistoryRecord(isWinner = false) // 保存進度，標記為未完成
+        }
+
+        // 移除 Firebase 中的比賽資料（選擇性）
+        if (::matchRef.isInitialized) {
+            matchRef.removeValue()
+        }
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("退出對戰")
+            .setMessage("你確定要結束對戰並返回主畫面嗎？未保存的進度將會遺失。")
+            .setPositiveButton("是") { _, _ ->
+                super.onBackPressed()
+                stopBackgroundOperations() // 停止所有背景操作
+            }
+            .setNegativeButton("否", null)
+            .show()
     }
 
     /**顯示報錯信息*/
