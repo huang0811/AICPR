@@ -9,7 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
-class BattleResultActivity : AppCompatActivity() {
+class  BattleResultActivity : AppCompatActivity() {
 
     private lateinit var ibBack: ImageButton
     private lateinit var ibRestart: ImageButton

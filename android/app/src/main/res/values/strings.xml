@@ -7,7 +7,7 @@
     <string name="menu_button_description">學員資料</string>
     <string name="demo_description">demo</string>
 
-    <string name="tfe_pe_app_name">AICPR 心肺拯救之旅</string>
+    <string name="tfe_pe_app_name">AICPR \n心肺拯救之旅</string>
     <string name="tfe_pe_request_permission">This app needs camera permission.</string>
     <string name="tfe_pe_tv_cycle">按壓循環: %s</string>
     <string name="tfe_pe_tv_deep">按壓深度: %s</string>
