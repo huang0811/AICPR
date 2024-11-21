@@ -50,6 +50,12 @@ class SelectActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val teach = findViewById<ImageButton>(R.id.teach)
+        teach.setOnClickListener {
+            val intent = Intent(this, chat_robot::class.java)
+            startActivity(intent)
+        }
+
         val history = findViewById<ImageButton>(R.id.history)
         history.setOnClickListener {
             val intent = Intent(this, HistoryActivity::class.java)

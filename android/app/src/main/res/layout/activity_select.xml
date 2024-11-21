@@ -32,12 +32,12 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageButton
-        android:id="@+id/demo"
+        android:id="@+id/teach"
         android:layout_width="250dp"
         android:layout_height="65dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/ripple_effect"
-        android:contentDescription="@string/demo_description"
+        android:contentDescription="@string/teach_description"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_demo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/demo" />
+        app:layout_constraintTop_toBottomOf="@+id/teach" />
 
     <ImageButton
         android:id="@+id/battle_mode"

@@ -99,6 +99,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- ChatRobot Activity -->
+        <activity android:name=".chat_robot" android:exported="true" />
+        <activity android:name=".chat_robot2" android:exported="false" />
+        <activity android:name=".chat_robot3" android:exported="true"/>
+        <activity android:name=".chat_robot4" android:exported="true"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -5,7 +5,7 @@
     <string name="game_mode_description">遊戲模式</string>
     <string name="normal_mode_description">一般模式</string>
     <string name="menu_button_description">學員資料</string>
-    <string name="demo_description">教學</string>
+    <string name="teach_description">教學</string>
 
     <string name="tfe_pe_app_name">AICPR \n心肺拯救之旅</string>
     <string name="tfe_pe_request_permission">未獲得相機權限，應用無法運行</string>
@@ -33,17 +33,24 @@
         <item>NNAPI</item>
         <item>GPU</item>
         <item>CPU</item>
-
-
     </string-array>
 
     <string-array name="tfe_pe_camera_name">
         <item>后置</item>
         <item>前置</item>
     </string-array>
+
     <string-array name="tfe_pe_model_name">
         <item>Movenet 標準版</item>
         <item>Movenet 輕量版</item>
-
     </string-array>
+
+    <!-- 你添加的字符串资源 -->
+    <string name="ai_avatar_desc">AI头像</string>
+
+    <!-- 這裡加入新的文字資源 -->
+    <string name="loading_text">Loading...</string>
+    <string name="btn_next">Next</string>
+    <!-- 將你的 API 金鑰放在這裡 -->
+    <string name="openai_api_key">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</string> <!-- 請將你的 API 金鑰放在這裡 -->
 </resources>
