@@ -570,12 +570,19 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         cameraSource = null
         super.onPause()
         handler.removeCallbacks(runnable) // 暫停計時器
+        if (::player.isInitialized) {
+            player.pause()
+        }
     }
 
     override fun onStop() {
         super.onStop()
         beaterstop()
         player.release()
+        if (::player.isInitialized) {
+            player.stop()
+            player.release()
+        }
     }
 
     override fun onDestroy() {
@@ -619,12 +626,13 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     }
 
     private fun setupPlayer() {//設置撥放器
+        if (::player.isInitialized) return // 防止重複初始化
         player = ExoPlayer.Builder(this).build()
 
-        surfaceView.holder.addCallback(surfaceCallback)
+//        surfaceView.holder.addCallback(surfaceCallback)
         dataSourceFactory = DefaultDataSourceFactory(this, "ExoPlayerDemo")
-
-        player.addListener(this)
+//
+//        player.addListener(this)
         val uri1 = Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4")
 
         val mediaSource1 = ProgressiveMediaSource.Factory(dataSourceFactory)

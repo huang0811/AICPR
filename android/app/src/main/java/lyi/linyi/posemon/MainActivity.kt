@@ -651,32 +651,31 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             .createMediaSource(uri1)
         concatenatingMediaSource.addMediaSource(mediaSource1)
 
-
         player.setMediaSource(concatenatingMediaSource)
-        player.addListener(object : Player.Listener {
-            override fun onIsPlayingChanged(isPlaying: Boolean) {
-                super.onIsPlayingChanged(isPlaying)
-                createPoseEstimator()
-                if (isPlaying) {
-                    // 正在播放，開始偵測人體動作
-                    // 在這裡加入你的人體偵測程式碼
-                    createPoseEstimator()
-                } else {
-                    // 暫停或停止播放，停止偵測人體動作
-                    // 在這裡加入你的停止偵測程式碼
-                }
-            }
-
-            override fun onPositionDiscontinuity(reason: Int) {
-                super.onPositionDiscontinuity(reason)
-                // 播放位置發生變化，這可能意味著播放新的影片，需要停止之前的偵測
-                // 在這裡加入你的停止偵測程式碼
-            }
-        })
-
+//        player.addListener(object : Player.Listener {
+//            override fun onIsPlayingChanged(isPlaying: Boolean) {
+//                super.onIsPlayingChanged(isPlaying)
+//                createPoseEstimator()
+//                if (isPlaying) {
+//                    // 正在播放，開始偵測人體動作
+//                    // 在這裡加入你的人體偵測程式碼
+//                    createPoseEstimator()
+//                } else {
+//                    // 暫停或停止播放，停止偵測人體動作
+//                    // 在這裡加入你的停止偵測程式碼
+//                }
+//            }
+//
+//            override fun onPositionDiscontinuity(reason: Int) {
+//                super.onPositionDiscontinuity(reason)
+//                // 播放位置發生變化，這可能意味著播放新的影片，需要停止之前的偵測
+//                // 在這裡加入你的停止偵測程式碼
+//            }
+//        })
         player.prepare()
-        player.play()
-
+//        buttonPlay.setOnClickListener {
+//            player.play()
+//        }
     }
 
     fun getFilePathFromContentUri(context: Context, contentUri: Uri): String? {
