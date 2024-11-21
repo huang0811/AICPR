@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="lyi.linyi.posemon.chat_robot3">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 顯示相機預覽的區域，佔據上方區域 -->
+        <SurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_sheet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- RecyclerView 用於顯示聊天記錄 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/surfaceView"
+            app:layout_constraintBottom_toTopOf="@id/bottom_sheet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/tem_chat_message"/>
+
+        <!-- 底部數據和按鈕區域 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C0B6AE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- 按鈕區域 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <!-- 回首頁按鈕 -->
+                <ImageButton
+                    android:id="@+id/btHome"
+                    android:layout_width="190dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_effect"
+                    android:contentDescription="@string/btn_home"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_home"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btResult"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- 前往結果頁面按鈕 -->
+                <ImageButton
+                    android:id="@+id/btResult"
+                    android:layout_width="190dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_effect"
+                    android:contentDescription="@string/btn_result"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_result"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btHome"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 計時器標題 -->
+            <TextView
+                android:id="@+id/tvTimer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Time: "
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btLayout" />
+
+            <!-- FPS 標題 -->
+            <TextView
+                android:id="@+id/tvFps"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Fps: "
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTimer" />
+
+            <!-- 按壓循環標題 -->
+            <TextView
+                android:id="@+id/tvCycle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="按壓循環: "
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvFps" />
+
+            <!-- 按壓深度標題 -->
+            <TextView
+                android:id="@+id/tvDeep"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="按壓深度: "
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCycle" />
+
+            <!-- 按壓頻率標題 -->
+            <TextView
+                android:id="@+id/tvFrequency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="按壓頻率: "
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDeep" />
+
+            <!-- 按壓姿勢標題 -->
+            <TextView
+                android:id="@+id/tvAngle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="按壓姿勢: "
+                android:layout_marginBottom="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvFrequency" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

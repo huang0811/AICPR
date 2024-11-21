@@ -103,13 +103,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7afb2e-bced-4267-9e4c-d14c502d4f69" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/android" beforeDir="false" afterPath="$PROJECT_DIR$/android" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/lyi/linyi/posemon/BattleActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/lyi/linyi/posemon/BattleActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-hdpi/ic_launcher2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-mdpi/ic_launcher2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xhdpi/ic_launcher2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/ic_launcher2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/icn_chevron_up.png" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/transformed/jetified-junit-1.1.2/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/transformed/jetified-junit-1.1.2/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/transformed/jetified-junit-1.1.2/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/annotations.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/proguard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/public.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/res/values/values.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/transformed/espresso-idling-resource-3.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/transformed/espresso-idling-resource-3.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/transformed/espresso-idling-resource-3.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/transformed/runner-1.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/transformed/runner-1.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/transformed/runner-1.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/transformed/runner-1.3.0/proguard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/transformed/core-runtime-2.1.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/transformed/core-runtime-2.1.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/transformed/core-runtime-2.1.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/transformed/jetified-core-1.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/transformed/jetified-core-1.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/transformed/jetified-core-1.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/transformed/monitor-1.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/transformed/monitor-1.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/transformed/monitor-1.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/transformed/monitor-1.3.0/proguard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/transformed/espresso-core-3.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/transformed/espresso-core-3.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/transformed/espresso-core-3.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/transformed/espresso-core-3.3.0/proguard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../WpSystem/S-1-5-21-1790597853-4056121175-327325898-1001/AppData/Local/Packages/SpotifyAB.SpotifyMusic_zpdnekdrzrea0/LocalCache/Spotify/BrowserMetrics-spare.pma" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../WpSystem/S-1-5-21-1790597853-4056121175-327325898-1001/AppData/Local/Packages/SpotifyAB.SpotifyMusic_zpdnekdrzrea0/LocalCache/Spotify/Default/Code Cache/js/e7a90b63147925b4_0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../WpSystem/S-1-5-21-1790597853-4056121175-327325898-1001/AppData/Local/Packages/SpotifyAB.SpotifyMusic_zpdnekdrzrea0/LocalCache/Spotify/Default/SharedStorage-wal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AICPR-resultlogic/.idea/other.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AICPR-resultlogic/.idea/other.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AICPR-resultlogic/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AICPR-resultlogic/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AICPR-resultlogic/main/pose_labels.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../AICPR-resultlogic/main/pose_labels.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +248,7 @@
     "com.google.services.firebase.aqiPopupShown": "true",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "D:/project/AICPR-result/AICPR-resultlogic/app/src/main/res/drawable",
-    "last_opened_file_path": "D:/project/AICPR-result/AICPR-resultlogic/.gitignore",
+    "last_opened_file_path": "D:/project/AICPR-result/AICPR-merge/android",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
@@ -293,9 +340,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
-      <method v="2">
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
+      <method v="2" />
     </configuration>
     <configuration name="AICPR-resultlogic:app [testDebugUnitTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
