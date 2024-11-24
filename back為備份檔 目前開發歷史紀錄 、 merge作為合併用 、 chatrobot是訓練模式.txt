@@ -1,0 +1,36 @@
+back為備份檔 目前開發歷史紀錄 、 merge作為合併用 、 chatrobot是訓練模式
+
+1. 確認當前分支
+git branch
+
+如果當前不在目標分支（如 android），切換到 android 分支：
+git checkout android
+
+2.從遠端拉取 android 分支的最新更新並合併到本地：
+git pull origin android
+
+如果出現合併衝突：
+打開衝突文件，解決標記部分：
+
+複製程式碼
+<<<<<<< HEAD
+本地程式碼
+=======
+遠端程式碼
+>>>>>>> android
+
+保存解決後的文件。
+添加解決衝突的文件到暫存區：
+git add <檔案名稱>
+
+提交合併結果：
+git commit -m "解決合併衝突"
+
+3.添加所有更改：
+git add .
+
+4.添加提交信息，記錄更改內容：
+git commit -m "提交說明，例如：修正排序邏輯"
+
+5.將本地分支推送到遠端的 android 分支：
+git push origin android
