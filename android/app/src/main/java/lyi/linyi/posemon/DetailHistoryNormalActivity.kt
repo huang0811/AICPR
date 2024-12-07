@@ -93,40 +93,49 @@ class DetailHistoryNormalActivity : AppCompatActivity() {
         // 填充數據到表格
         for (i in detailedData.indices) {
             val data = detailedData[i]
-            depthViews[i].text = data["depth"].toString()
-            frequencyViews[i].text = data["frequency"].toString()
-            angleViews[i].text = data["angle"].toString()
+
+            // 四捨五入到小數點第一位
+            val depth = (data["depth"] as? Double ?: 0.0)
+            depthViews[i].text = String.format("%.1f", depth)
+
+            val frequency = (data["frequency"] as? Double ?: 0.0)
+            frequencyViews[i].text = String.format("%.1f", frequency)
+
+            val angle = (data["angle"] as? Double ?: 0.0)
+            angleViews[i].text = String.format("%.1f", angle)
+
             cycleViews[i].text = if (data["cycleCompleted"] as Boolean) "完成" else "未完成"
         }
 
-        // 填充數據到表格
+        // 再次遍歷以設置顏色
         for (i in detailedData.indices) {
             val data = detailedData[i]
-            depthViews[i].text = data["depth"].toString()
-            frequencyViews[i].text = data["frequency"].toString()
-            angleViews[i].text = data["angle"].toString()
-            cycleViews[i].text = if (data["cycleCompleted"] as Boolean) "完成" else "未完成"
+
+            val depth = (data["depth"] as? Double ?: 0.0)
+            val frequency = (data["frequency"] as? Double ?: 0.0)
+            val angle = (data["angle"] as? Double ?: 0.0)
+            val cycleCompleted = data["cycleCompleted"] as Boolean
 
             // 判斷是否合格並設置紅字
-            if ((data["depth"] as? Double ?: 0.0) !in 5.0..6.0) {
+            if (depth !in 5.0..6.0) {
                 depthViews[i].setTextColor(Color.RED)
             } else {
                 depthViews[i].setTextColor(Color.BLACK)
             }
 
-            if ((data["frequency"] as? Double ?: 0.0) !in 100.0..120.0) {
+            if (frequency !in 100.0..120.0) {
                 frequencyViews[i].setTextColor(Color.RED)
             } else {
                 frequencyViews[i].setTextColor(Color.BLACK)
             }
 
-            if ((data["angle"] as? Double ?: 0.0) < 165.0) {
+            if (angle < 165.0) {
                 angleViews[i].setTextColor(Color.RED)
             } else {
                 angleViews[i].setTextColor(Color.BLACK)
             }
 
-            if (cycleViews[i].text == "未完成") {
+            if (!cycleCompleted) {
                 cycleViews[i].setTextColor(Color.RED)
             } else {
                 cycleViews[i].setTextColor(Color.BLACK)

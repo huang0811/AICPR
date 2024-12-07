@@ -60,6 +60,42 @@ import kotlin.collections.ArrayDeque
 import kotlin.concurrent.scheduleAtFixedRate
 import kotlin.concurrent.timer
 
+data class BattleMaxDiffData(
+    val deep: Float,
+    val frequency: Float,
+    val bothAngle: Float,
+    val isCycleCompleted: Boolean
+) : Parcelable {
+    // 實現 Parcelable 接口的必要方法
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeFloat(deep)
+        parcel.writeFloat(frequency)
+        parcel.writeFloat(bothAngle)
+        parcel.writeByte(if (isCycleCompleted) 1 else 0)
+    }
+
+    companion object CREATOR : Parcelable.Creator<BattleMaxDiffData> {
+        // 从 Parcel 中读取数据并创建对象
+        override fun createFromParcel(parcel: Parcel): BattleMaxDiffData {
+            return BattleMaxDiffData(
+                parcel.readFloat(), // 读取 deep
+                parcel.readFloat(), // 读取 frequency
+                parcel.readFloat(), // 读取 bothAngle
+                parcel.readByte() != 0.toByte() // 读取 isCycleCompleted
+            )
+        }
+
+        override fun newArray(size: Int): Array<BattleMaxDiffData?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
+
 class BattleActivity : AppCompatActivity() ,Player.Listener {
     companion object {
         private const val FRAGMENT_DIALOG = "dialog"
@@ -119,7 +155,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     val wristYDiffs = ArrayDeque<Float>(windowSize)
     val dataArrayList = ArrayList<CsvData>()
     val dataArrayList_3 = ArrayList<CsvData>()
-    val maxDiffDataList = ArrayList<MaxDiffData>()
+    val maxDiffDataList = ArrayList<BattleMaxDiffData>()
     val timer = Timer()
 
     // 媒體播放器和攝像頭相關變數
@@ -350,7 +386,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
 
                         tvAngle.text = getString(
                             R.string.tfe_pe_tv_angle,
-                            "左手:${maxDiff.leftAngle}° 右手:${maxDiff.rightAngle}°"
+                            "雙手:${(maxDiff.leftAngle+maxDiff.rightAngle)/2}° "
                         )
                     }
                 }
@@ -479,7 +515,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         if (playerData.bothAngle > 165) matchCount++
 
         // 計算單位距離（與玩家一致）
-        val unitDistance = maxTranslationX / 128
+        val unitDistance = maxTranslationX / 120
 
         // 根據符合條件的數量來計算前進距離
         return when (matchCount) {
@@ -1015,7 +1051,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                             val csvData = CsvData(averagewristYDiff.toFloat(), frequency.toInt(), angleLeft!!, angleRight!!,)
                                             dataArrayList.add(csvData)
                                             dataArrayList_3.add(csvData)
-                                            totalcount++
 
                                             if (dataArrayList_3.size > 2) {
                                                 val maxDiff_3 = dataArrayList_3.maxByOrNull { it.deep }
@@ -1026,6 +1061,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                                     totalLeftAngle+=maxDiff_3.leftAngle
                                                     totalRightAngle+= maxDiff_3.rightAngle
                                                     totalBothAngle+=(maxDiff_3.leftAngle+maxDiff_3.rightAngle)/2
+                                                    totalcount++
 
                                                     if(csvsave) {
                                                         writeToCsv2(
@@ -1059,7 +1095,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                                     // 根據符合條件的數量移動角色
                                                     var playerProgress = 0f
                                                     // 計算每單位前進距離
-                                                    val unitDistance = maxTranslationX / 384
+                                                    val unitDistance = maxTranslationX / 335
 
                                                     // 三個部分都在標準內
                                                     if (matchCount > 2) {
@@ -1087,13 +1123,13 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                         tvAngle.text = getString(R.string.tfe_pe_tv_angle,"等待下一個循環")
 
                                         if(willCycle){
-//                                            if(maxDiffDataList.size<5) {//&&totalDeep!=0.0
+                                            if(maxDiffDataList.size<5) {//&&totalDeep!=0.0
                                                 if(totalcount!=0) {
                                                     maxDiffDataList.add(
-                                                        MaxDiffData(   //計算所有值的平均
+                                                        BattleMaxDiffData(   //計算所有值的平均
                                                             (totalDeep.toFloat() / totalcount) ,
+                                                            (totalFrequency.toFloat() / totalcount) ,
                                                             (totalBothAngle.toFloat() / totalcount) ,
-                                                            (totalRightAngle.toFloat() / totalcount) ,
                                                             true
                                                         )
                                                     )
@@ -1106,8 +1142,9 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                                     totalFrequency = 0
                                                     totalLeftAngle = 0
                                                     totalRightAngle = 0
+                                                    totalBothAngle = 0
                                                     willCycle = false
-//                                                }
+                                                }
                                             }
                                         }
                                     }
@@ -1279,12 +1316,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
 
         // 傳遞對戰結果
         resultIntent.putExtra("result", if (isWinner) "win" else "lose")
-        resultIntent.putExtra("averageDeep", totalDeep / safeTotalCount)
-        resultIntent.putExtra("averageFrequency", totalFrequency / safeTotalCount)
-        resultIntent.putExtra("averageBothAngle", totalBothAngle / safeTotalCount)
-        resultIntent.putExtra("cycles", maxDiffDataList.size)
-
-        // 傳遞 maxDiffDataList
         resultIntent.putParcelableArrayListExtra("maxDiffDataList", maxDiffDataList)
         resultIntent.putExtra("EXTRA_TIME", seconds)
 
@@ -1296,9 +1327,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
             Log.e("BattleActivity", "跳轉到 BattleResultActivity 時發生異常: ${e.message}")
             Toast.makeText(this, "發生錯誤，無法跳轉到對戰結果頁面", Toast.LENGTH_SHORT).show()
         }
-
-        // 保存對戰記錄
-        saveHistoryRecord(isWinner)
 
         // 移除Firebase對戰數據
         if (::matchRef.isInitialized) {
@@ -1324,18 +1352,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         uncprcount = 0 // 重置 uncprcount
         cprcount = 0   // 重置 cprcount
         maxDiffDataList.clear() // 清空數據列表
-    }
-
-    private fun saveHistoryRecord(isWinner: Boolean) {
-        val historyRef = database.getReference("history").child(userId!!)
-        val record = mapOf(
-            "averageDeep" to (totalDeep / totalcount),
-            "averageFrequency" to (totalFrequency / totalcount),
-            "averageBothAngle" to (totalBothAngle / totalcount),
-            "cycles" to maxDiffDataList.size,
-            "result" to if (isWinner) "win" else "lose"
-        )
-        historyRef.push().setValue(record)
     }
 
     private fun isPoseClassifier() {
@@ -1438,11 +1454,6 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
 
         // 停止節拍聲音
         beaterstop()
-
-        // 如果需要，將當前進度保存到 Firebase
-        if (userId != null && totalcount > 0) {
-            saveHistoryRecord(isWinner = false) // 保存進度，標記為未完成
-        }
 
         // 移除 Firebase 中的比賽資料（選擇性）
         if (::matchRef.isInitialized) {

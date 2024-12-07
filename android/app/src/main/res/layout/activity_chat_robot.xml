@@ -19,7 +19,7 @@
             android:layout_height="107dp"
             android:layout_margin="16dp"
             android:gravity="center"
-            android:text="點擊NEXT STEP開始"
+            android:text="點擊下一步開始"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/ibBack"

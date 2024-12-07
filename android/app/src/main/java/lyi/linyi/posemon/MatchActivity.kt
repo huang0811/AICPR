@@ -22,6 +22,7 @@ import java.util.*
 import android.os.Vibrator
 import android.os.VibrationEffect
 import android.content.Context
+import android.widget.Toast
 import com.google.firebase.database.MutableData
 
 class MatchActivity : AppCompatActivity() {
@@ -49,6 +50,7 @@ class MatchActivity : AppCompatActivity() {
             startMatching() // 開始配對邏輯
         } else {
             // 若未登入，跳轉到登入介面
+            Toast.makeText(this, "請先登入才能對戰匹配！", Toast.LENGTH_LONG).show()
             val loginIntent = Intent(this, LoginActivity::class.java)
             startActivity(loginIntent)
             finish()

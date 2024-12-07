@@ -28,15 +28,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
-        android:layout_width="359dp"
-        android:layout_height="278dp"
+        android:layout_width="406dp"
+        android:layout_height="344dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layout_constraintBottom_toTopOf="@id/choiceLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ibchatback"
-        app:layout_constraintVertical_bias="0.991" />
+        app:layout_constraintVertical_bias="0.425" />
 
     <LinearLayout
         android:id="@+id/choiceLayout"
@@ -68,7 +69,7 @@
             android:backgroundTint="#c1b7af"
             android:contentDescription="選項2"
             android:gravity="center"
-            android:text="什麼是叫叫CABD呀?"
+            android:text="為甚麼要學CPR?"
             android:textColor="#6d6864" />
 
         <Button

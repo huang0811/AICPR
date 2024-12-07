@@ -43,47 +43,73 @@ class DetailHistoryBattleActivity : AppCompatActivity() {
             finish()
         }
 
-        // 取得傳遞過來的記錄 ID
-        val recordId = intent.getStringExtra("record_id") ?: "Unknown"
-        fetchRecordDetails(recordId)
+        // 取得传递的 document_id
+        val documentId = intent.getStringExtra("document_id") ?: "Unknown"
+
+        if (documentId == "Unknown") {
+            showErrorState()
+            return
+        }
+
+        // 从 Firestore 获取详细数据
+        fetchRecordDetails(documentId)
     }
 
-    private fun fetchRecordDetails(recordId: String) {
-        firestore.collection("user_history").document(recordId).get()
+    private fun fetchRecordDetails(documentId: String) {
+        firestore.collection("user_history").document(documentId).get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val result = document.getString("qualificationResult") ?: "Unknown"
-                    val date = document.getString("date") ?: "Unknown"
-                    val time = document.getString("time") ?: "Unknown"
-                    val avgDepth = document.getDouble("avgDepth") ?: 0.0
-                    val avgFrequency = document.getDouble("avgFrequency") ?: 0.0
-                    val avgAngle = document.getDouble("avgAngle") ?: 0.0
-                    val avgCycle = document.getString("avgCycle") ?: "Unknown"
+                     val timestamp = document.getString("timestamp") ?: "Unknown"
+                    val avgDepth = document.getDouble("averageDepth") ?: 0.0
+                    val avgFrequency = document.getDouble("averageFrequency") ?: 0.0
+                    val avgAngle = document.getDouble("averageAngle") ?: 0.0
+                    val cycles = document.getLong("cycles") ?: 0L
+
+                    // 分割 timestamp 為日期和時間
+                    val date = timestamp.substringBefore(" ") // 取空格前的日期部分
+                    val time = timestamp.substringAfter(" ")  // 取空格後的時間部分
 
                     // 設定日期和時間
-                    dateTextView.text = date
-                    timeTextView.text = time
+                    dateTextView.text = getString(R.string.date_label, date)
+                    timeTextView.text = getString(R.string.time_label, time)
 
                     // 顯示平均數據
-                    avgDepthTextView.text = String.format("%.1f", avgDepth)
-                    avgFrequencyTextView.text = String.format("%.1f", avgFrequency)
-                    avgAngleTextView.text = String.format("%.1f", avgAngle)
-                    avgCycleTextView.text = avgCycle
+                    updateTextView(avgDepthTextView, avgDepth, 5.0..6.0)
+                    updateTextView(avgFrequencyTextView, avgFrequency, 100.0..120.0)
+                    updateTextView(avgAngleTextView, avgAngle, 165.0..180.0)
+                    avgCycleTextView.text = cycles.toString()
+
 
                     // 顯示結果圖片
-                    if (result == "合格") {
-                        trophyImageView.visibility = View.VISIBLE
-                        grimReaperImageView.visibility = View.GONE
-                    } else {
-                        trophyImageView.visibility = View.GONE
-                        grimReaperImageView.visibility = View.VISIBLE
-                    }
+                        trophyImageView.visibility = if (result == "勝利") View.VISIBLE else View.GONE
+                        grimReaperImageView.visibility = if (result != "勝利") View.VISIBLE else View.GONE
+                } else {
+                    showErrorState()
                 }
             }
             .addOnFailureListener {
-                // 取得數據失敗時的處理
-                trophyImageView.visibility = View.GONE
-                grimReaperImageView.visibility = View.GONE
+                showErrorState()
             }
+    }
+
+    private fun showErrorState() {
+        trophyImageView.visibility = View.GONE
+        grimReaperImageView.visibility = View.GONE
+        dateTextView.text = ""
+        timeTextView.text = ""
+        avgDepthTextView.text = "-"
+        avgFrequencyTextView.text = "-"
+        avgAngleTextView.text = "-"
+        avgCycleTextView.text = "-"
+    }
+
+    private fun updateTextView(textView: TextView, value: Double, range: ClosedFloatingPointRange<Double>) {
+        textView.text = String.format("%.1f", value)
+        if (value in range) {
+            textView.setTextColor(getColor(R.color.black)) // 正常顯示為黑色
+        } else {
+            textView.setTextColor(getColor(R.color.red)) // 超出範圍顯示為紅色
+        }
     }
 }

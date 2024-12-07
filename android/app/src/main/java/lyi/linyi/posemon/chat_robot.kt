@@ -50,28 +50,15 @@ class chat_robot : AppCompatActivity() {
             } else {
                 // 如果所有对话都显示完毕，进入第二步骤
                 val intent = Intent(this, chat_robot2::class.java) // 确保使用正确的类名
+                intent.putExtra("lastDialogue", "我待會會一步一步教導您!那就讓我們開始吧!!")
                 startActivity(intent)
             }
         }
 
         // 设置“Back”按钮的点击事件监听器
         backButton.setOnClickListener {
-            // 如果当前对话索引大于 0，回到上一句对话
-            if (currentDialogueIndex > 0) {
-                currentDialogueIndex-- // 将对话索引减 1
-                // 更新显示的对话内容
-                val maxChars = 50
-                val text = dialogues[currentDialogueIndex]
-                dialogueTextView.text = if (text.length > maxChars) {
-                    text.substring(0, maxChars) + "..."
-                } else {
-                    text
-                }
-            } else {
-                // 如果当前是第一句对话，返回到 SelectActivity
-                val intent = Intent(this, SelectActivity::class.java)
-                startActivity(intent)
-            }
+            val intent = Intent(this, SelectActivity::class.java)
+            startActivity(intent)
         }
     }
 }

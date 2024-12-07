@@ -48,20 +48,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/historyTitle" />
 
-    <ImageView
-        android:id="@+id/grimReaperImageView"
-        android:layout_width="336dp"
-        android:layout_height="250dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_grim_reaper"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/historyTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <!-- 日期和時間 -->
 
     <!-- 對戰模式表格 -->
+
+    <ImageView
+        android:id="@+id/grimReaperImageView"
+        android:layout_width="329dp"
+        android:layout_height="290dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_grim_reaper"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/historyTitle" />
 
     <TextView
         android:id="@+id/dateTextView"
@@ -72,7 +73,7 @@
         android:text="DATE:"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

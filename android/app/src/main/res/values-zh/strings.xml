@@ -17,6 +17,10 @@
     <string name="tfe_pe_tv_angle">角度: %s</string>
     <string name="tfe_pe_tv_device">裝置: </string>
     <string name="tfe_pe_tv_camera">相機: </string>
+
+    <string name="date_label">Date: %s</string>
+    <string name="time_label">Time: %s</string>
+
     <string name="pass">恭喜獲勝</string>
     <string name="btn_history">歷史紀錄</string>
     <string name="btn_login">登入</string>

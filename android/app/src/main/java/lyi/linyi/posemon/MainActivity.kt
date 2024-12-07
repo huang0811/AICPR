@@ -22,7 +22,6 @@ package lyi.linyi.posemon
 
 //import lyi.linyi.posemon.ml.PoseClassifier
 import android.Manifest
-
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -77,6 +76,7 @@ import kotlin.concurrent.timer
 
 data class CsvData(val deep: Float, val frequency: Int, val leftAngle: Int, val rightAngle: Int)
 data class MaxDiffData(
+
     val deep: Float,
     val frequency: Float,
     val bothAngle: Float,
@@ -489,7 +489,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
 
 
             }
-        }, 0, 400) // 開始的延遲時間為 0，間隔為 500 毫秒
+        }, 0, 200) // 開始的延遲時間為 0，間隔為 200 毫秒
 
 
         if (csvsave) {  //進行是否建立檔案
@@ -531,33 +531,25 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                 }
             }
 
-
-
         initSpinner()
         if (!isCameraPermissionGranted()) {
             requestPermission()
         }
-
-
     }
 
     override fun onStart() {
         super.onStart()
         openCamera()
-
     }
 
     suspend fun waitSecond() {
-
         while (true) {
 //               if(flagwait){
             delay(200)
             flagwait = false
 //               }
             break
-
         }
-
     }
 
     fun beater() {
@@ -582,16 +574,13 @@ class MainActivity : AppCompatActivity(), Player.Listener {
     }
 
     fun beaterstop() {
-
         beatPlayer?.release()
         beatPlayer = null
-
     }
 
     override fun onResume() {
         cameraSource?.resume()
         super.onResume()
-
         setupPlayer()
         beater()
         //   addMP4()

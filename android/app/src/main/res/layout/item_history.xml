@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_historybtn_back"
+        android:src="@drawable/ic_btnback"
         app:layout_constraintDimensionRatio="4:1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +38,7 @@
         android:id="@+id/historyResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/zixinfang_hongchao_bangshu"
+        android:fontFamily="@font/yujiboku_regular"
         android:gravity="end"
         android:shadowColor="#ffffff"
         android:shadowDx="4"
@@ -50,8 +50,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/historyBackground"
         app:layout_constraintEnd_toEndOf="@id/historyBackground"
-        app:layout_constraintHorizontal_bias="0.644"
+        app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toEndOf="@id/historyDate"
-        app:layout_constraintTop_toTopOf="@id/historyBackground"
-        app:layout_constraintVertical_bias="0.511" />
+        app:layout_constraintTop_toTopOf="@id/historyBackground" />
 </androidx.constraintlayout.widget.ConstraintLayout>

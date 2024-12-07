@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +32,19 @@ class HistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
+
+        // 檢查是否已登入
+        val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
+        val currentUserId = sharedPref.getString("userID", null)
+
+        if (currentUserId == null) {
+            // 未登入，用 Toast 提示，並跳轉到登入頁面
+            makeText(this, "請先登入後再查看歷史紀錄！", LENGTH_LONG).show()
+            val loginIntent = Intent(this, LoginActivity::class.java)
+            startActivity(loginIntent)
+            finish()
+            return
+        }
 
         // 初始化視圖
         normalModeButton = findViewById(R.id.normal_mode)
@@ -236,5 +251,5 @@ data class HistoryRecord(
     val result: String,
     val description: String,
     val detailedData: List<Map<String, Any>> = emptyList(),
-    val timestamp: String // 添加原始 timestamp
+    val timestamp: String // 原始時間戳
 )

@@ -13,14 +13,15 @@ class ChatgptAPI(private val apiKey: String) {
     private val client = OkHttpClient()
     private val url = "https://api.openai.com/v1/chat/completions"
 
-    fun sendMessage(messages: List<ChatMessage>, round: Int, callback: (String) -> Unit) {
+    // 修改方法以接受 userChoice 並基於選擇生成回覆
+    fun sendMessage(messages: List<ChatMessage>, round: Int, userChoice: String, callback: (String) -> Unit) {
         try {
             val json = JSONObject()
             json.put("model", "gpt-3.5-turbo")
 
             val messagesArray = JSONArray()
 
-            // 加入上下文的歷史訊息
+            // 添加歷史對話
             for (chatMessage in messages) {
                 val jsonMessage = JSONObject()
                 jsonMessage.put("role", if (chatMessage.isUser) "user" else "assistant")
@@ -28,23 +29,28 @@ class ChatgptAPI(private val apiKey: String) {
                 messagesArray.put(jsonMessage)
             }
 
-            // 設置系統訊息，確保對話符合指定的回合
-            val systemMessage = JSONObject()
-            systemMessage.put("role", "system")
-            when (round) {
-                1 -> systemMessage.put("content", "用自然的語氣介紹叫叫CABD，並引導用戶進入第一步的'叫'：確認患者有無意識和呼吸。")
-                2 -> systemMessage.put("content", "用戶剛了解第一步，請用自然的語氣引導他們進入第二步的'叫'：呼叫他人並撥打119求救。")
-                3 -> systemMessage.put("content", "介紹胸部按壓（C），包括按壓的位置、姿勢、深度和頻率。保持生動自然的對話。")
-                4 -> systemMessage.put("content", "介紹呼吸道暢通（A），用簡單有趣的方式解釋如何打開呼吸道。")
-                5 -> systemMessage.put("content", "簡單介紹人工呼吸（B），提及AED的用途，但保持簡短。")
-                6 -> systemMessage.put("content", "鼓勵用戶進行實際練習，並用友善的語氣引導。")
-                7 -> systemMessage.put("content", "總結叫叫CABD的步驟，並詢問用戶是否準備好進行練習。")
+            // 添加系統提示，根據 userChoice 提供特定的 CPR 按壓知識
+            val systemMessage = JSONObject().apply {
+                put("role", "system")
+                put(
+                    "content", """
+                    請根據以下用戶選擇的選項回覆 CPR 按壓相關的教學內容：
+                    1. '為什麼要打直？'：解釋雙手完全打直的重要性以及如何正確操作，字數不超過50字。
+                    2. '165 度怎麼量？'：按壓標準為雙手平均角度大於165度，說明按壓時角度為什麼不能超過 165 度，並給出調整建議，字數不超過0字。
+                    3. '怎麼知道深度？'：解釋按壓深度的標準是 5-6 公分，並給出簡單測量方法，字數不超過50字。
+                    4. '怎麼控制節奏？'：說明按壓頻率 100-120 下/分鐘的原因，並提供控制節奏的建議，或說明我們的應用偵測中有提供節拍器可以聆聽，字數不超過50字。
+                    5. '節拍器怎麼用？'：指導用戶如何使用我們應用中的節拍器來輔助保持節奏，字數不超過50字。
+                    
+                    用戶選擇的選項是：'$userChoice'
+                """.trimIndent()
+                )
             }
             messagesArray.put(systemMessage)
 
             json.put("messages", messagesArray)
-            val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
+            // 構建請求
+            val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
             val request = Request.Builder()
                 .url(url)
                 .post(requestBody)
@@ -53,114 +59,46 @@ class ChatgptAPI(private val apiKey: String) {
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    Log.d("ChatgptAPI", "API request failed: ${e.message}")
-                    callback("請求失敗，錯誤: ${e.message}")
+                    callback("請求失敗，錯誤：${e.message}")
                 }
 
                 override fun onResponse(call: Call, response: Response) {
                     if (!response.isSuccessful) {
-                        Log.d("ChatgptAPI", "API request failed, status code: ${response.code}")
-                        callback("API 請求失敗，狀態碼: ${response.code}")
+                        callback("API 請求失敗，狀態碼：${response.code}")
                     } else {
                         val responseBody = response.body?.string()
-                        Log.d("ChatgptAPI", "API response: $responseBody")
-
                         try {
-                            val jsonObject = JSONObject(responseBody)
+                            val jsonObject = JSONObject(responseBody ?: "")
                             val choicesArray = jsonObject.getJSONArray("choices")
                             val messageObject = choicesArray.getJSONObject(0).getJSONObject("message")
                             val content = messageObject.getString("content")
                             callback(content.trim())
                         } catch (e: Exception) {
-                            Log.d("ChatgptAPI", "Failed to parse response: ${e.message}")
-                            callback("無法解析回應，錯誤: ${e.message}")
+                            callback("無法解析回應，錯誤：${e.message}")
                         }
                     }
                 }
             })
         } catch (e: Exception) {
-            Log.d("ChatgptAPI", "Exception in sendMessage: ${e.message}")
-            callback("請求發生錯誤，錯誤: ${e.message}")
+            callback("請求發生錯誤，錯誤：${e.message}")
         }
     }
 
+    // 選項生成保持不變
     fun generateChoices(context: List<ChatMessage>, round: Int, callback: (List<String>) -> Unit) {
-        try {
-            val json = JSONObject()
-            json.put("model", "gpt-3.5-turbo")
-
-            val messagesArray = JSONArray()
-
-            // 加入上下文的歷史訊息
-            for (chatMessage in context) {
-                val jsonMessage = JSONObject()
-                jsonMessage.put("role", if (chatMessage.isUser) "user" else "assistant")
-                jsonMessage.put("content", chatMessage.message)
-                messagesArray.put(jsonMessage)
+        val choices = when (round) {
+            1 -> listOf("為什麼要打直？", "彎曲會怎樣？", "了解了")
+            2 -> listOf("165 度怎麼量？", "為什麼要這樣？", "試試看")
+            3 -> listOf("怎麼知道深度？", "太淺有什麼影響？", "明白了")
+            4 -> listOf("怎麼控制節奏？", "這樣慢嗎？", "學到了")
+            5 -> listOf("節拍器怎麼用？", "語音回饋是什麼？", "開始吧")
+            6 -> listOf("再說一次", "我準備好了", "試試看")
+            7 -> listOf("開始練習", "直接開始練習吧", "我想開始練習了")
+            else -> {
+                Log.e("ChatgptAPI", "未知回合數：$round")
+                listOf("錯誤：未知回合")
             }
-
-            // 根據回合設置用戶選項的系統訊息
-            val systemMessage = JSONObject()
-            systemMessage.put("role", "system")
-            when (round) {
-                1 -> systemMessage.put("content", "生成用戶選項：'我想學CPR'、'如何按壓？'、'開始吧！'")
-                2 -> systemMessage.put("content", "生成用戶選項：'了解了！'、'那下一步呢？'、'第二步是什麼？'")
-                3 -> systemMessage.put("content", "生成用戶選項：'按壓要多深？'、'這樣對嗎？'、'怎麼按？'")
-                4 -> systemMessage.put("content", "生成用戶選項：'如何打開呼吸道？'、'這樣簡單嗎？'、'我懂了！'")
-                5 -> systemMessage.put("content", "生成用戶選項：'怎麼人工呼吸？'、'需要AED嗎？'、'還有什麼？'")
-                6 -> systemMessage.put("content", "生成用戶選項：'我要練習'、'我準備好了'、'開始吧！'")
-                7 -> systemMessage.put("content", "生成用戶選項：'進入練習'、'學完了'、'來吧！'")
-            }
-            messagesArray.put(systemMessage)
-
-            json.put("messages", messagesArray)
-
-            val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
-
-            val request = Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .addHeader("Authorization", "Bearer $apiKey")
-                .build()
-
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.d("ChatgptAPI", "Failed to generate choices: ${e.message}")
-                    callback(listOf("無法生成選項，錯誤: ${e.message}"))
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    if (!response.isSuccessful) {
-                        Log.d("ChatgptAPI", "Failed to generate choices, status code: ${response.code}")
-                        callback(listOf("無法生成選項，狀態碼: ${response.code}"))
-                    } else {
-                        val responseBody = response.body?.string()
-                        Log.d("ChatgptAPI", "Choices generated: $responseBody")
-
-                        try {
-                            val jsonObject = JSONObject(responseBody)
-                            val choicesArray = jsonObject.getJSONArray("choices")
-                            val generatedText = choicesArray.getJSONObject(0).getJSONObject("message").getString("content")
-
-                            // 解析生成的選項，並符合規範
-                            val generatedChoices = generatedText.split(Regex("\\d+\\.")).map {
-                                it.trim()
-                            }.filter { it.isNotEmpty() && it.length <= 10 }
-
-                            // 返回符合規範的選項
-                            val finalChoices = generatedChoices.take(3)
-
-                            callback(finalChoices)
-                        } catch (e: Exception) {
-                            Log.d("ChatgptAPI", "Failed to parse generated choices: ${e.message}")
-                            callback(listOf("無法解析選項，錯誤: ${e.message}"))
-                        }
-                    }
-                }
-            })
-        } catch (e: Exception) {
-            Log.d("ChatgptAPI", "Exception in generateChoices: ${e.message}")
-            callback(listOf("請求發生錯誤，錯誤: ${e.message}"))
         }
+        callback(choices)
     }
 }

@@ -38,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var signupButton: ImageButton
     private lateinit var forgotPasswordButton: ImageButton
     private lateinit var signInLauncher: ActivityResultLauncher<Intent>
-    private lateinit var logoutButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
         googleSignInButton = findViewById(R.id.btn_google_signin)
         signupButton = findViewById(R.id.btn_signup)
         forgotPasswordButton = findViewById(R.id.btn_forgotPassword)
-        logoutButton = findViewById(R.id.btn_logout)
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -143,10 +141,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-        logoutButton.setOnClickListener {
-            signOut()
-        }
     }
 
     override fun onStart() {
@@ -194,19 +188,6 @@ class LoginActivity : AppCompatActivity() {
             "Logged in as: ${user.email}"
         } else {
             "未登入"
-        }
-    }
-
-    private fun signOut() {
-        mAuth.signOut()
-        mGoogleSignInClient.signOut().addOnCompleteListener(this) {
-            val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
-            with(sharedPref.edit()) {
-                clear()
-                apply()
-            }
-            updateUI(null)
-            Toast.makeText(this, "已成功登出", Toast.LENGTH_SHORT).show()
         }
     }
 }
