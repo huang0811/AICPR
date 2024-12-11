@@ -1,0 +1,175 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C0B6AE"
+    tools:context=".MainResultActivity">
+
+    <!-- 表格佈局 -->
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:background="#EAE5E1"
+        android:stretchColumns="1,2,3,4"
+        app:layout_constraintBottom_toTopOf="@id/buttonLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- 表頭行 -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/border">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:padding="3dp"
+                android:src="@drawable/ic_cpr" />
+
+            <TextView
+                android:text="深度"
+                style="@style/TableRowText"
+                android:minHeight="75dp" />
+
+            <TextView
+                android:text="頻率"
+                style="@style/TableRowText"
+                android:minHeight="75dp" />
+
+            <TextView
+                android:text="角度"
+                style="@style/TableRowText"
+                android:minHeight="75dp" />
+
+            <TextView
+                android:text="循環"
+                style="@style/TableRowText"
+                android:minHeight="75dp" />
+        </TableRow>
+
+        <!-- 數據行 -->
+        <TableRow>
+            <TextView android:text="第一次" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFirstDepth" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFirstFrequency" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFirstAngle" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFirstCycle" style="@style/TableRowText" android:minHeight="75dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView android:text="第二次" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvSecondDepth" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvSecondFrequency" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvSecondAngle" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvSecondCycle" style="@style/TableRowText" android:minHeight="75dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView android:text="第三次" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvThirdDepth" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvThirdFrequency" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvThirdAngle" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvThirdCycle" style="@style/TableRowText" android:minHeight="75dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView android:text="第四次" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFourthDepth" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFourthFrequency" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFourthAngle" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFourthCycle" style="@style/TableRowText" android:minHeight="75dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView android:text="第五次" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFifthDepth" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFifthFrequency" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFifthAngle" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvFifthCycle" style="@style/TableRowText" android:minHeight="75dp" />
+        </TableRow>
+
+        <!-- 結果行 -->
+        <TableRow>
+            <TextView android:text="結果" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvIsPassDepth" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvIsPassFrequency" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvIsPassAngle" style="@style/TableRowText" android:minHeight="75dp" />
+            <TextView android:id="@+id/tvIsPassCycle" style="@style/TableRowText" android:minHeight="75dp" />
+        </TableRow>
+    </TableLayout>
+
+    <!-- 按钮区域 -->
+    <GridLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:columnCount="2"
+        android:gravity="center"
+        android:rowCount="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tableLayout">
+
+        <ImageButton
+            android:id="@+id/btnReport"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/ripple_effect"
+            android:contentDescription="@string/btn_report"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_report" />
+
+        <ImageButton
+            android:id="@+id/btnRestart"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/ripple_effect"
+            android:contentDescription="@string/btn_restart"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_newgame" />
+
+        <ImageButton
+            android:id="@+id/btnHistory"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/ripple_effect"
+            android:contentDescription="@string/btn_history"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_history" />
+
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            android:background="@drawable/ripple_effect"
+            android:contentDescription="@string/btn_home"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_home" />
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config>
+        <device id="pixel_2" />
+        <device id="_device_class_phone" />
+        <device id="pixel" />
+        <device id="pixel_xl" />
+        <device id="pixel_7a" />
+        <device id="_device_class_desktop" />
+        <device id="_device_class_tablet" />
+        <device id="pixel_3_xl" />
+        <device id="pixel_6" />
+        <device id="pixel_8" />
+      </config>
+    </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_battle.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_battle_result.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_password.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_history.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main2.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main_result.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_match.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_select.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_history.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/xml/file_paths.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/xml/network_security_config.xml">
+        <config>
+          <theme>@style/Theme.PoseEstimation</theme>
+        </config>
+      </layout>
+    </layouts>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fc7afb2e-bced-4267-9e4c-d14c502d4f69" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/transformed/jetified-junit-1.1.2/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/transformed/jetified-junit-1.1.2/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/15dc5d67c5a4d176e3e5c0a6b20b336b/transformed/jetified-junit-1.1.2/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/annotations.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/proguard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/public.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/2375255181aafb79eca6b6cc7df69606/transformed/recyclerview-1.1.0/res/values/values.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/transformed/espresso-idling-resource-3.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/transformed/espresso-idling-resource-3.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/41296ab9441db1c60e47c891dc627e25/transformed/espresso-idling-resource-3.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/transformed/runner-1.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/transformed/runner-1.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/transformed/runner-1.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/8a3490a7752e7a7c8ac0bd1a4e3d7f87/transformed/runner-1.3.0/proguard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/transformed/core-runtime-2.1.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/transformed/core-runtime-2.1.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/a445d55ae04a289684c9e7f60e0e4dc0/transformed/core-runtime-2.1.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/transformed/jetified-core-1.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/transformed/jetified-core-1.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/bdeaf7545ecadc23960270b3bc245917/transformed/jetified-core-1.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/transformed/monitor-1.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/transformed/monitor-1.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/transformed/monitor-1.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/dd63506876d013e5445f031b4ff9356f/transformed/monitor-1.3.0/proguard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/metadata.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/results.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/transformed/espresso-core-3.3.0/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/transformed/espresso-core-3.3.0/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/transformed/espresso-core-3.3.0/jars/classes.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../GradleUserHome/caches/8.10.1/transforms/ecaa0b7a7f5831611dbb2a1a38081351/transformed/espresso-core-3.3.0/proguard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../WpSystem/S-1-5-21-1790597853-4056121175-327325898-1001/AppData/Local/Packages/SpotifyAB.SpotifyMusic_zpdnekdrzrea0/LocalCache/Spotify/BrowserMetrics-spare.pma" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../WpSystem/S-1-5-21-1790597853-4056121175-327325898-1001/AppData/Local/Packages/SpotifyAB.SpotifyMusic_zpdnekdrzrea0/LocalCache/Spotify/Default/Code Cache/js/e7a90b63147925b4_0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../WpSystem/S-1-5-21-1790597853-4056121175-327325898-1001/AppData/Local/Packages/SpotifyAB.SpotifyMusic_zpdnekdrzrea0/LocalCache/Spotify/Default/SharedStorage-wal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AICPR-resultlogic/.idea/other.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AICPR-resultlogic/.idea/other.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AICPR-resultlogic/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AICPR-resultlogic/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AICPR-resultlogic/main/pose_labels.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../AICPR-resultlogic/main/pose_labels.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Pose Monitor" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Pose Monitor" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Pose Monitor" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Pose Monitor" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="resourceFile" />
+        <option value="layoutResourceFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2m6aLOV20LeYbdctcsNrBICsP8K" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "Gradle.AICPR-resultlogic:app [testDebugUnitTest].executor": "Run",
+    "Gradle.AICPR-resultlogic:app [testReleaseUnitTest].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "D:/project/AICPR-result/AICPR-resultlogic/app/src/main/res/drawable",
+    "last_opened_file_path": "D:/project/AICPR-result/AICPR-merge/android",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater"
+  },
+  "keyToStringList": {
+    "kotlin-gradle-user-dirs": [
+      "D:\\GradleUserHome"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\project\AICPR-result\AICPR-resultlogic\app\src\main\res\drawable" />
+    </key>
+    <key name="android.template.364277185">
+      <recent name="lyi.linyi.posemon" />
+    </key>
+    <key name="android.template.-1281538442">
+      <recent name="lyi.linyi.posemon" />
+    </key>
+    <key name="android.template.1687457468">
+      <recent name="lyi.linyi.posemon" />
+    </key>
+    <key name="android.template.-1120584504">
+      <recent name="lyi.linyi.posemon" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android App.app">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="Pose_Monitor.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AICPR-resultlogic:app [testDebugUnitTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="testDebugUnitTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="AICPR-resultlogic:app [testReleaseUnitTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="testReleaseUnitTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.AICPR-resultlogic:app [testDebugUnitTest]" />
+        <item itemvalue="Gradle.AICPR-resultlogic:app [testReleaseUnitTest]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fc7afb2e-bced-4267-9e4c-d14c502d4f69" name="Changes" comment="" />
+      <created>1726399422737</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726399422737</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

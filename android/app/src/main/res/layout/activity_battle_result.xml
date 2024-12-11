@@ -1,0 +1,71 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BattleResultActivity">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_champion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!-- Ask for help 按鈕 -->
+
+    <ImageButton
+        android:id="@+id/ibRestart"
+        android:layout_width="230dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="550dp"
+        android:background="@drawable/ripple_effect"
+        android:contentDescription="@string/btn_restart"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_newgame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backgroundImage" />
+
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="230dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/ripple_effect"
+        android:contentDescription="@string/btn_home"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ibRestart"
+        app:layout_constraintVertical_bias="0.189" />
+
+    <ImageButton
+        android:id="@+id/ibHelp"
+        android:layout_width="121dp"
+        android:layout_height="109dp"
+        android:background="@drawable/ripple_effect"
+        android:contentDescription="@string/btn_help"
+        android:visibility="gone"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_ask_for_help"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.254" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
