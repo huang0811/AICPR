@@ -104,7 +104,7 @@ class MainResultActivity : AppCompatActivity() {
 
         btnHome.setOnClickListener {
             // 返回主菜單
-            val intent = Intent(this, MainActivity2::class.java)
+            val intent = Intent(this, SelectActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -282,7 +282,7 @@ class MainResultActivity : AppCompatActivity() {
         val document = Document(pdfDocument)
 
         // 載入字型
-        val fontStream = assets.open("NotoSansTC-Medium.ttf") // 加載 assets 文件夾中的字體
+        val fontStream = assets.open("aabanruokaishujiacu.ttf") // 加載 assets 文件夾中的字體
         val font = PdfFontFactory.createFont(fontStream.readBytes(), PdfEncodings.IDENTITY_H, true)
         fontStream.close() // 關閉文件流
 
@@ -309,19 +309,19 @@ class MainResultActivity : AppCompatActivity() {
         }
 
         // 插入使用者資料，左對齊
-        addText(userID, 190f, 542f, alignment = com.itextpdf.layout.property.TextAlignment.LEFT)
-        addText(userName, 190f, 509f, alignment = com.itextpdf.layout.property.TextAlignment.LEFT)
+//        addText(userID, 190f, 542f, alignment = com.itextpdf.layout.property.TextAlignment.LEFT)
+        addText(userName, 160f, 533f, alignment = com.itextpdf.layout.property.TextAlignment.LEFT)
         val currentDateTime = SimpleDateFormat("yyyy/MM/dd  HH:mm:ss", Locale.getDefault()).format(Date())
-        addText(currentDateTime, 175f, 471f, alignment = com.itextpdf.layout.property.TextAlignment.LEFT)
+        addText(currentDateTime, 200f, 487f, alignment = com.itextpdf.layout.property.TextAlignment.LEFT)
 
         // 插入測驗結果，左對齊
-        addText(result, 175f, 393f, fontSize = 40f, alignment = com.itextpdf.layout.property.TextAlignment.LEFT)
+        addText(result, 200f, 413f, fontSize = 40f, alignment = com.itextpdf.layout.property.TextAlignment.LEFT)
 
         // 插入評估結果，置中對齊
-        addText(depthStatus, 285f, 281f, alignment = com.itextpdf.layout.property.TextAlignment.CENTER)
-        addText(frequencyStatus, 285f, 231f, alignment = com.itextpdf.layout.property.TextAlignment.CENTER)
-        addText(angleStatus, 285f, 181f, alignment = com.itextpdf.layout.property.TextAlignment.CENTER)
-        addText(cycleStatus, 285f, 131f, alignment = com.itextpdf.layout.property.TextAlignment.CENTER)
+        addText(depthStatus, 290f, 307f, alignment = com.itextpdf.layout.property.TextAlignment.CENTER)
+        addText(frequencyStatus, 290f, 257f, alignment = com.itextpdf.layout.property.TextAlignment.CENTER)
+        addText(angleStatus, 290f, 207f, alignment = com.itextpdf.layout.property.TextAlignment.CENTER)
+        addText(cycleStatus, 290f, 157f, alignment = com.itextpdf.layout.property.TextAlignment.CENTER)
 
         // 關閉文檔
         document.close()

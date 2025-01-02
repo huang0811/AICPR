@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoseEstimation">
         <activity
+            android:name=".StoreActivity"
+            android:exported="false" />
+        <activity
             android:name=".AchievementActivity"
             android:exported="false" />
         <activity

@@ -28,16 +28,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
-        android:layout_width="406dp"
-        android:layout_height="344dp"
+        android:layout_width="408dp"
+        android:layout_height="372dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layout_constraintBottom_toTopOf="@id/choiceLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ibchatback"
-        app:layout_constraintVertical_bias="0.425" />
+        app:layout_constraintVertical_bias="0.686" />
 
     <LinearLayout
         android:id="@+id/choiceLayout"
@@ -58,7 +58,7 @@
             android:backgroundTint="#c1b7af"
             android:contentDescription="選項1"
             android:gravity="center"
-            android:text="我來了!快點開始吧"
+            android:text="我來啦!!快教我吧"
             android:textColor="#6d6864" />
 
         <Button
@@ -69,7 +69,7 @@
             android:backgroundTint="#c1b7af"
             android:contentDescription="選項2"
             android:gravity="center"
-            android:text="為甚麼要學CPR?"
+            android:text="我等你好久了...快開始吧!!"
             android:textColor="#6d6864" />
 
         <Button
@@ -79,7 +79,7 @@
             android:backgroundTint="#c1b7af"
             android:contentDescription="選項3"
             android:gravity="center"
-            android:text="哈囉CPRMAN，我們開始學習吧"
+            android:text="嗨!!CPR MAN 我準備好學習了"
             android:textColor="#6d6864" />
     </LinearLayout>
 

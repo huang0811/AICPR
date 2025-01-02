@@ -22,7 +22,7 @@
         <clip>
             <shape android:shape="rectangle">
                 <corners android:radius="10dp" />
-                <solid android:color="#4CAF50" /> <!-- 進度顏色 -->
+                <solid android:color="#97908b" /> <!-- 進度顏色 -->
             </shape>
         </clip>
     </item>

@@ -66,8 +66,8 @@ class  BattleResultActivity : AppCompatActivity() {
         }
 
         ibHelp.setOnClickListener {
-        startActivity(Intent(this, chat_robot::class.java))
-        finish()
+            startActivity(Intent(this, chat_robot::class.java))
+            finish()
         }
     }
 

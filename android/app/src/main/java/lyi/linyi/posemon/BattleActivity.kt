@@ -328,13 +328,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         surfaceView = findViewById(R.id.surfaceView)
 
         btHome.setOnClickListener {
-            // 點擊按鈕時，啟動 MainActivity2
-            val intent = Intent(this, SelectActivity::class.java)
-            startActivity(intent)
-            beaterstop()
-
-            // 關閉當前的 MainActivity
-            finish()
+            showExitBattleDialog()
         }
 
         val intent = Intent(this, BattleResultActivity::class.java)
@@ -650,6 +644,11 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
         // 格式化時間顯示，補零
         val timeString = String.format("時間:  %02d:%02d", minutes, remainingSeconds)
         tvTimer.text = timeString
+
+        // 如果超過2分鐘（120秒），結束比賽並比較進度
+        if (elapsedSeconds >= 120) {
+            determineWinnerByProgress() // 呼叫進度比較方法
+        }
     }
 
     /** 检查相机权限是否有授权 */
@@ -1095,7 +1094,7 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
                                                     // 根據符合條件的數量移動角色
                                                     var playerProgress = 0f
                                                     // 計算每單位前進距離
-                                                    val unitDistance = maxTranslationX / 335
+                                                    val unitDistance = maxTranslationX / 320
 
                                                     // 三個部分都在標準內
                                                     if (matchCount > 2) {
@@ -1270,6 +1269,22 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
             }
             createPoseEstimator()
         }
+    }
+
+    private fun determineWinnerByProgress() {
+        // 獲取 player1 和 player2 的寬度及進度
+        val player1RightEdge = player1.translationX + player1.width.toFloat()
+        val player2RightEdge = player2.translationX + player2.width.toFloat()
+
+        // 判斷誰的進度更遠
+        val isPlayer1Winner = when {
+            player1RightEdge > player2RightEdge -> true
+            player1RightEdge < player2RightEdge -> false
+            else -> isPlayer1 // 若進度相等，則由當前玩家獲勝
+        }
+
+        // 結束比賽，根據進度決定勝負
+        endBattle(isWinner = isPlayer1Winner)
     }
 
     private fun checkWinCondition() {
@@ -1462,12 +1477,18 @@ class BattleActivity : AppCompatActivity() ,Player.Listener {
     }
 
     override fun onBackPressed() {
+        showExitBattleDialog()
+    }
+
+    private fun showExitBattleDialog() {
         AlertDialog.Builder(this)
             .setTitle("退出對戰")
             .setMessage("你確定要結束對戰並返回主畫面嗎？未保存的進度將會遺失。")
             .setPositiveButton("是") { _, _ ->
-                super.onBackPressed()
                 stopBackgroundOperations() // 停止所有背景操作
+                val intent = Intent(this, SelectActivity::class.java)
+                startActivity(intent)
+                finish()
             }
             .setNegativeButton("否", null)
             .show()

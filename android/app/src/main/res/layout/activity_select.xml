@@ -39,7 +39,7 @@
         android:background="@drawable/ripple_effect"
         android:contentDescription="@string/teach_description"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_demo"
+        android:src="@drawable/ic_teach"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,45 +75,45 @@
 
     <ImageButton
         android:id="@+id/login"
-        android:layout_width="99dp"
-        android:layout_height="39dp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:background="@null"
         android:contentDescription="@string/btn_login"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_left_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.116"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
-
-    <ImageButton
-        android:id="@+id/profile"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@null"
-        android:visibility="gone"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.067" />
+        app:layout_constraintVertical_bias="0.079" />
+
+    <ImageButton
+        android:id="@+id/profile"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_profile"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.068" />
 
     <ImageButton
         android:id="@+id/achievement"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:background="@null"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_achievement"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintHorizontal_bias="0.914"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.067" />
+        app:layout_constraintVertical_bias="0.068" />
 </androidx.constraintlayout.widget.ConstraintLayout>

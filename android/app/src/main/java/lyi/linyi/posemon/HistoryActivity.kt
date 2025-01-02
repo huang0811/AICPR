@@ -148,9 +148,14 @@ class HistoryActivity : AppCompatActivity() {
                 timestamp = timestamp
             )
         }
-        // 將資料排序為日期從近到遠，並在每個日期內次序從大到小
-        return records.sortedWith(compareByDescending<HistoryRecord> { it.date }
-            .thenByDescending { it.description })
+        // 將資料排序為日期從近到遠，並在每個日期內依次序（order）排序
+        return records.sortedWith(
+            compareByDescending<HistoryRecord> { it.timestamp } // 根據 timestamp 排序
+                .thenBy {
+                    // 提取 description 中的 order 部分進行排序
+                    it.description.split("_").last().toIntOrNull() ?: Int.MAX_VALUE
+                }
+        )
     }
 
     private suspend fun fetchRecordsFromDatabase(isBattleMode: Boolean): List<Map<String, Any>> {

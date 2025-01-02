@@ -23,6 +23,7 @@ import android.os.Vibrator
 import android.os.VibrationEffect
 import android.content.Context
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.database.MutableData
 
 class MatchActivity : AppCompatActivity() {
@@ -59,9 +60,7 @@ class MatchActivity : AppCompatActivity() {
         // 綁定返回主選單的按鈕
         val btHome = findViewById<ImageButton>(R.id.btHome)
         btHome.setOnClickListener {
-            val intent = Intent(this, SelectActivity::class.java)
-            startActivity(intent)
-            finish()
+            showExitMatchDialog()
         }
 
         // 綁定心臟 ImageView 並設置心跳動畫
@@ -79,13 +78,69 @@ class MatchActivity : AppCompatActivity() {
         cancelMatching() // 取消匹配並移除配對資料
     }
 
+    // 顯示結束匹配確認對話框
+    private fun showExitMatchDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("結束匹配")
+            .setMessage("確定要結束匹配對戰嗎？")
+            .setPositiveButton("是") { _, _ ->
+                // 結束匹配並返回主選單
+                isMatched = true // 確保不會再觸發配對完成邏輯
+                cancelMatching() // 清理 Firebase 配對資料
+                val intent = Intent(this, SelectActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            .setNegativeButton("否") { dialog, _ ->
+                // 關閉對話框
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    @Suppress("MissingSuperCall")
+    override fun onBackPressed() {
+        // 攔截返回鍵行為，顯示確認對話框
+        showExitMatchDialog()
+    }
+
     // 取消匹配並清除 Firebase 中的匹配房間
     private fun cancelMatching() {
         removeMatchListener() // 移除監聽器
-        roomId?.let {
-            matchRef = database.getReference("matches").child(it)
-            matchRef.removeValue() // 刪除匹配房間資料
+        roomId?.let { roomId ->
+            matchRef = database.getReference("matches").child(roomId)
+            matchRef.runTransaction(object : Transaction.Handler {
+                override fun doTransaction(currentData: MutableData): Transaction.Result {
+                    // 如果當前用戶是 player1 或 player2，清除對應的節點
+                    val existingPlayer1 = currentData.child("player1").getValue(String::class.java)
+                    val existingPlayer2 = currentData.child("player2").getValue(String::class.java)
+
+                    if (existingPlayer1 == userId) {
+                        currentData.child("player1").value = null
+                        currentData.child("player1Name").value = null
+                    } else if (existingPlayer2 == userId) {
+                        currentData.child("player2").value = null
+                        currentData.child("player2Name").value = null
+                    }
+
+                    // 如果房間中沒有任何玩家，則刪除整個房間
+                    if (currentData.child("player1").value == null && currentData.child("player2").value == null) {
+                        currentData.value = null // 將節點設置為空，刪除該節點
+                    }
+
+                    return Transaction.success(currentData) // 返回更新後的數據
+                }
+
+                override fun onComplete(databaseError: DatabaseError?, committed: Boolean, currentData: DataSnapshot?) {
+                    if (databaseError != null) {
+                        // 錯誤處理：刪除匹配資料失敗
+                        Toast.makeText(this@MatchActivity, "取消匹配時發生錯誤：${databaseError.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         }
+        isMatched = true // 確保不會再進行配對完成的邏輯
     }
 
     // 心跳動畫的函式
@@ -181,11 +236,29 @@ class MatchActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (!isMatched) {
                 isMatched = true
-                val aiName = "CPRMAN"
+                showMatchOptionDialog()
+
+            }
+        }, 10000) // 10 秒配對等待
+    }
+
+    private fun showMatchOptionDialog() {
+        val aiName = "CPRMAN"
+        val aiUserId = "AICPRisChampion" // 固定 AI 的 userID
+
+        AlertDialog.Builder(this)
+            .setTitle("匹配未完成")
+            .setMessage("您可以選擇繼續匹配或直接與 AI 對戰。")
+            .setPositiveButton("繼續匹配") { _, _ ->
+                isMatched = false
+                startMatching() // 繼續匹配
+            }
+            .setNegativeButton("與AI對戰") { _, _ ->
                 matchRef.runTransaction(object : Transaction.Handler {
                     override fun doTransaction(currentData: MutableData): Transaction.Result {
                         if (currentData.child("player2").getValue(String::class.java) == null) {
-                            currentData.child("player2").value = "AICPRisChampion"
+                            // 將 AI 加入到匹配房間中
+                            currentData.child("player2").value = aiUserId
                             currentData.child("player2Name").value = aiName
                             return Transaction.success(currentData)
                         }
@@ -194,13 +267,18 @@ class MatchActivity : AppCompatActivity() {
 
                     override fun onComplete(databaseError: DatabaseError?, committed: Boolean, currentData: DataSnapshot?) {
                         if (committed) {
-//                            matchRef.removeEventListener(matchListener)  // 移除監聽器
-                            removeMatchListener()  // 移除監聽器
-                            startBattleActivity(isAiOpponent = true, myName = playerName ?: "Player", opponentName = aiName)                        }
+                            // 如果 AI 成功加入匹配房間，開始對戰
+                            removeMatchListener()
+                            startBattleActivity(isAiOpponent = true, myName = playerName ?: "Player", opponentName = aiName)
+                        } else {
+                            // 如果房間更新失敗，可以選擇重試或其他操作
+                            Toast.makeText(this@MatchActivity, "與 AI 配對失敗，請重試。", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 })
             }
-        }, 10000) // 10 秒配對等待
+            .setCancelable(false)
+            .show()
     }
 
     private fun removeMatchListener() {
@@ -209,24 +287,34 @@ class MatchActivity : AppCompatActivity() {
 
     // 生成或加入房間ID
     private fun generateOrJoinRoomId(callback: (String) -> Unit) {
-        var availableRoomId: String? = null
+        database.getReference("matches").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var availableRoomId: String? = null
 
-        database.getReference("matches").orderByChild("player2").equalTo(null)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (room in snapshot.children) {
-                        val player1Id = room.child("player1").getValue(String::class.java)
-                        if (player1Id != null && player1Id != userId) {
-                            availableRoomId = room.key
-                            break
-                        }
+                for (room in snapshot.children) {
+                    val player1Id = room.child("player1").getValue(String::class.java)
+                    val player2Id = room.child("player2").getValue(String::class.java)
+
+                    // 過濾只有 player1 且尚未匹配 player2 的房間
+                    if (player1Id != null && player2Id == null && player1Id != userId) {
+                        availableRoomId = room.key
+                        break
                     }
-                    // 返回可用房間ID或創建新房間
-                    callback(availableRoomId ?: database.getReference("matches").push().key ?: UUID.randomUUID().toString())
+
+                    // 如果房間中沒有任何有效玩家，刪除該房間
+                    if (player1Id == null && player2Id == null) {
+                        room.ref.removeValue()
+                    }
                 }
 
-                override fun onCancelled(error: DatabaseError) {}
-            })
+                // 如果沒有可用房間，創建新房間
+                callback(availableRoomId ?: database.getReference("matches").push().key!!)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // 處理取消事件
+            }
+        })
     }
 
     // 開始 BattleActivity 並傳遞角色參數

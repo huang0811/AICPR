@@ -30,6 +30,7 @@
     <string name="btn_home">Back To Home</string>
     <string name="btn_result">Go To Result</string>
     <string name="btn_help">Ask for help</string>
+    <string name="store">store</string>
 
     <string name="default_web_client_id">718819344543-en32s1msev786pisou2ho9rgs6ue2lbr.apps.googleusercontent.com</string>
 
@@ -55,6 +56,10 @@
     <!-- 這裡加入新的文字資源 -->
     <string name="loading_text">Loading...</string>
     <string name="btn_next">Next</string>
+
+    <!--請將你的 Dify 金鑰放在這裡 -->
+    <string name="dify_api_key">app-gkGf2mh3ixLg8KzPAfz99TmE</string>  <!--請將你的 Dify 金鑰放在這裡 -->
     <!-- 將你的 API 金鑰放在這裡 -->
-    <string name="openai_api_key">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</string> <!-- 請將你的 API 金鑰放在這裡 -->
+    <!--    <string name="openai_api_key">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</string> &lt;!&ndash; 請將你的 API 金鑰放在這裡 &ndash;&gt;-->
 </resources>
+
